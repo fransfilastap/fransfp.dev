@@ -5765,11 +5765,12 @@ rehype-img-size@^1.0.1:
     image-size "^1.0.0"
     unist-util-visit "^4.1.0"
 
-rehype-pretty-code@^0.9.5:
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/rehype-pretty-code/-/rehype-pretty-code-0.9.5.tgz#99fb9b43ce08bca8d34828b7303ad840a159bf14"
-  integrity sha512-TYA4oDxxn4z/YZ6ZNz7BX5BuyeJzi7D6XxI44T/eqUOBYypwwOd7RZ+IBb1NkERpian/k7sZ1+KsdIbWDRenQw==
+rehype-pretty-code@^0.9.7:
+  version "0.9.7"
+  resolved "https://registry.yarnpkg.com/rehype-pretty-code/-/rehype-pretty-code-0.9.7.tgz#d7e7337a7c16f50210b261ab2e408323c9ea7624"
+  integrity sha512-QBYciToqn6osk7G1mnXXSfjpszB4H/ZoyS8STvr57W/dNkaRBhXhcfgzahjFB880h10xwsL8oxgDvDCpracsfg==
   dependencies:
+    "@types/hast" "^2.0.0"
     hash-obj "^4.0.0"
     parse-numeric-range "^1.3.0"
 
