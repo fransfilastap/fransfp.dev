@@ -1,0 +1,18 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    target-branch: "main"
+    schedule:
+      interval: weekly
+      time: "00:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - fransfilastap
+    assignees:
+      - fransfilastap
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
