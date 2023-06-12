@@ -306,10 +306,10 @@
   resolved "https://registry.yarnpkg.com/@fal-works/esbuild-plugin-global-externals/-/esbuild-plugin-global-externals-2.1.2.tgz#c05ed35ad82df8e6ac616c68b92c2282bd083ba4"
   integrity sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==
 
-"@fluentui/react-icons@^2.0.201":
-  version "2.0.201"
-  resolved "https://registry.yarnpkg.com/@fluentui/react-icons/-/react-icons-2.0.201.tgz#5a5f8b549652b5024443589f9676cd1fea24275e"
-  integrity sha512-krQ8ZcKp5ONRTIjuN+Wf1Pl2UwqCmK3Bf0cbjm3IdCyX/HeFSUF2rT8ery6vToTAfFzmGQur7HSFzd6fPywnyA==
+"@fluentui/react-icons@^2.0.203":
+  version "2.0.203"
+  resolved "https://registry.yarnpkg.com/@fluentui/react-icons/-/react-icons-2.0.203.tgz#51dab997eec2db7bbcd429c3939490f868c2ab4e"
+  integrity sha512-eOV9GnCFzEIgllHEYenfkVB2MYChMRj2B8Vlr4qqdL0Kts7gRMfBIb+0+ADr5a3KIN0GtdAvG7KtsJ99O6gNmw==
   dependencies:
     "@griffel/react" "^1.0.0"
     tslib "^2.1.0"
