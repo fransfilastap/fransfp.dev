@@ -37,7 +37,7 @@ export default function BlogPostLayout({
       </div>
       <Title>{post.title}</Title>
       <ContentIntro className="my-10">{post.description}</ContentIntro>
-      <section className="flex flex-col-reverse justify-between w-full gap-x-10 lg:flex-row">
+      <section className="flex flex-col-reverse justify-between w-full mb-10 gap-x-10 lg:flex-row">
         <MDXComponent code={post.body.code} />
         <TableOfContent headings={post.headings} />
       </section>

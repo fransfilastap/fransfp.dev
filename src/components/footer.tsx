@@ -23,8 +23,12 @@ export default function Footer() {
           <nav className="flex flex-col gap-0">
             <FooterLink href={"mailto:mail@fransfp.dev"}>Email</FooterLink>
             <FooterLink href={"https://linkedin.com/"}>LinkedIn</FooterLink>
-            <FooterLink href={"/colophon"}>Twitter</FooterLink>
-            <FooterLink href={"/colophon"}>Github</FooterLink>
+            <FooterLink href={"https://twitter.com/franspotter"}>
+              Twitter
+            </FooterLink>
+            <FooterLink href={"https://github.com/fransfilastap"}>
+              Github
+            </FooterLink>
           </nav>
         </div>
       </Container>
