@@ -1,21 +1,9 @@
 import { CLOUDINARY_CLOUD_NAME } from '@/config/env';
+import { ImageLoaderProps } from 'next/image';
 
-const cloudinaryBaseUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/`;
-const cloudinaryWebImageDir = 'v1672477516/fransfp.dev';
+const normalizeSrc = (src:string) => src[0] === '/' ? src.slice(1) : src
 
-export type CloudinaryImage = {
-	placeholder: string;
-	thumbnail: string;
-	original: string;
-};
-
-export default function cloudinary(imageId: string): CloudinaryImage {
-	const placeholderUrl = `${cloudinaryBaseUrl}/w_auto/dpr_auto/e_blur:10000,q_50,f_webp/${cloudinaryWebImageDir}${imageId}`;
-	const thumbnailUrl = `${cloudinaryBaseUrl}/w_500/q_auto,f_webp/${cloudinaryWebImageDir}${imageId}`;
-	const original = `${cloudinaryBaseUrl}/q_80/w_auto/f_webp/${cloudinaryWebImageDir}${imageId}`;
-	return {
-		placeholder: placeholderUrl,
-		thumbnail: thumbnailUrl,
-		original
-	};
+export default function cloudinary({ src,width,quality}:ImageLoaderProps) {
+	const params = ['f_auto', 'c_limit', 'w_' + width, 'q_' + (quality || 'auto')];
+  return `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/${params.join(',')}/${normalizeSrc(src)}`;
 }
