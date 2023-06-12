@@ -23,7 +23,7 @@
     "add": "^2.0.6",
     "autoprefixer": "10.4.14",
     "clsx": "^1.2.1",
-    "contentlayer": "^0.3.2",
+    "contentlayer": "^0.3.3",
     "date-fns": "^2.30.0",
     "disqus-react": "^1.1.5",
     "eslint": "8.39.0",
