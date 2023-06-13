@@ -37,7 +37,6 @@ const mdxOptions = {
           if (codeEl.tagName !== 'code') return
           node.raw = codeEl.children?.[0].value
           const meta = codeEl.data?.meta || ''
-          console.log(meta)
           const metas = meta.match(/[^{}]+(?=})/g) || []
           if (metas.length > 0) {
             node.rawMeta = metas.join('|')

@@ -1,11 +1,12 @@
 import Container from "@/components/container";
 import { Metadata } from "next";
-import FeaturedPost from "@/components/featured-post";
 import BlogPost from "@/components/blog-post";
-import { allBlogs } from "contentlayer/generated";
-import featureCover from "../../../public/media/featured-post.jpg";
-import { compareDesc, format } from "date-fns";
 import { Suspense } from "react";
+import clsxm from "@/helpers/clsxm";
+import { getBlogPostandTag } from "@/lib/blog";
+import Tags from "@/components/tags";
+import { useRouter, useSearchParams } from "next/navigation";
+import BlogPostList from "@/components/blog-post-list";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -13,10 +14,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const blogs = allBlogs.sort((a, b) =>
-    compareDesc(new Date(a.date as string), new Date(b.date as string))
-  );
-
+  const { posts, tags } = getBlogPostandTag();
   return (
     <Container className="p-6 my-20">
       <div className="flex flex-col items-start justify-between mb-10">
@@ -27,12 +25,9 @@ export default async function Page() {
           My Thought, experiments, and tutorial
         </p>
       </div>
+      <Tags values={tags} total={posts.length} />
       <Suspense fallback={<Skeleton />}>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {blogs.map((blog, i) => (
-            <BlogPost key={i} blog={blog} />
-          ))}
-        </div>
+        <BlogPostList posts={posts} />
       </Suspense>
     </Container>
   );
@@ -40,10 +35,12 @@ export default async function Page() {
 
 function Skeleton() {
   return (
-      <div className={"flex flex-col justify-center items-center w-full h-[100vh] border border-gray-50"}>
-          <p className="font-[500]">
-              Loading....
-          </p>
-      </div>
+    <div
+      className={
+        "flex flex-col justify-center items-center w-full h-[100vh] border border-gray-50"
+      }
+    >
+      <p className="font-[500]">Loading....</p>
+    </div>
   );
 }

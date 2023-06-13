@@ -30,8 +30,9 @@ export default function Navigation() {
       >
         <Logo />
         <nav className="hidden gap-8 lg:inline-flex">
-          <NavigationMenuItem url="/about">About</NavigationMenuItem>
+          <NavigationMenuItem url="/">Home</NavigationMenuItem>
           <NavigationMenuItem url="/blog">Blog</NavigationMenuItem>
+          <NavigationMenuItem url="/about">About</NavigationMenuItem>
         </nav>
         <MobileMenuButton
           whileTap={{ scale: 0.8 }}
@@ -60,11 +61,14 @@ export default function Navigation() {
                   className="flex flex-col w-full gap-2 p-4 rounded-md shadow-slate-400 bg-white/30 backdrop-blur-md"
                 >
                   <nav className="flex flex-col items-end gap-2">
-                    <MobileNavigationMenuItem url="/about">
-                      About
+                    <MobileNavigationMenuItem url="/">
+                      Home
                     </MobileNavigationMenuItem>
                     <MobileNavigationMenuItem url="/blog">
                       Blog
+                    </MobileNavigationMenuItem>
+                    <MobileNavigationMenuItem url="/about">
+                      About
                     </MobileNavigationMenuItem>
                   </nav>
                 </motion.div>
