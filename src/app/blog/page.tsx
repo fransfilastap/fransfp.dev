@@ -7,6 +7,7 @@ import { getBlogPostandTag } from "@/lib/blog";
 import Tags from "@/components/tags";
 import { useRouter, useSearchParams } from "next/navigation";
 import BlogPostList from "@/components/blog-post-list";
+import BlogPostsLoadingSkeleton from "./loading";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -26,7 +27,7 @@ export default async function Page() {
         </p>
       </div>
       <Tags values={tags} total={posts.length} />
-      <Suspense fallback={<Skeleton />}>
+      <Suspense fallback={<BlogPostsLoadingSkeleton />}>
         <BlogPostList posts={posts} />
       </Suspense>
     </Container>
