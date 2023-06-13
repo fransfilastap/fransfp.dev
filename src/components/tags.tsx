@@ -23,6 +23,7 @@ export default function Tags({
         <TagPile tag="All" count={total} isActive={filter === ""} />
         {Object.keys(values).map((k, v) => (
           <TagPile
+            key={`tag-${k}`}
             tag={k}
             count={values[k]}
             isActive={filter.toLowerCase() === k.toLowerCase()}
