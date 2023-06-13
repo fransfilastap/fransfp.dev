@@ -3,8 +3,6 @@
 import { TagList } from "@/lib/blog";
 import TagPile from "./tag-pile";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
-import { useMotionTemplate } from "framer-motion";
 
 export default function Tags({
   values,
