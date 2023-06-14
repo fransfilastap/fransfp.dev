@@ -1,14 +1,11 @@
 import Container from "@/components/container";
 import { Metadata } from "next";
-import BlogPost from "@/components/blog-post";
 import { Suspense } from "react";
-import clsxm from "@/helpers/clsxm";
 import { getBlogPostandTag } from "@/lib/blog";
 import Tags from "@/components/tags";
-import { useRouter, useSearchParams } from "next/navigation";
-import BlogPostList from "@/components/blog-post-list";
+import BlogError from "./error";
 import BlogPostsLoadingSkeleton from "./loading";
-
+import BlogPostList from "@/components/blog-post-list";
 export const metadata: Metadata = {
   title: "Blog",
   description: "Read my thoughts on software development, design, and more.",
