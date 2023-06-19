@@ -44,7 +44,7 @@
     "rehype-code-titles": "^1.2.0",
     "rehype-figure": "^1.0.1",
     "rehype-img-size": "^1.0.1",
-    "rehype-pretty-code": "^0.9.7",
+    "rehype-pretty-code": "^0.9.8",
     "rehype-shiki": "^0.0.9",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
