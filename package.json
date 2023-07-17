@@ -48,7 +48,7 @@
     "rehype-shiki": "^0.0.9",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
-    "shiki": "^0.14.2",
+    "shiki": "^0.14.3",
     "slug": "^8.2.2",
     "slugify": "^1.6.6",
     "stagger-text-reveal-animation": "^1.0.0",
