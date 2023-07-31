@@ -13,7 +13,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@fluentui/react-icons": "^2.0.206",
+    "@fluentui/react-icons": "^2.0.209",
     "@jsdevtools/rehype-toc": "^3.0.2",
     "@mapbox/rehype-prism": "^0.8.0",
     "@prisma/client": "^4.15.0",
