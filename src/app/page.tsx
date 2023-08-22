@@ -33,11 +33,11 @@ const Masthead = () => {
 
 const HeroVideo = () => {
   return (
-    <section className="relative flex flex-col items-start justify-start object-cover w-full px-10 border h-[10vh] overflow-clip rounded-xl">
+    <section className="relative flex flex-col items-start justify-start object-cover w-full px-10 border h-[40vh] overflow-clip rounded-xl">
       <video className="absolute top-0 left-0" autoPlay muted loop playsInline>
         <source
           src={
-            "https://res.cloudinary.com/dyduzvx5b/video/upload/v1683124958/fransfp.dev/videos/hero-video_felfeh.mp4"
+            "https://res.cloudinary.com/dhtk5fgay/video/upload/v1687966667/pexels-rostislav-uzunov-9150545_720p_mfbhhc.mp4"
           }
           type="video/mp4"
         />
