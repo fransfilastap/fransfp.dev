@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
-    "@types/slug": "^5.0.3",
+    "@types/slug": "^5.0.7",
     "typescript": "5.1.6"
   }
 }
