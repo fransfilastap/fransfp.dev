@@ -27,7 +27,7 @@
     "disqus-react": "^1.1.5",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
-    "framer-motion": "^10.12.16",
+    "framer-motion": "^10.16.5",
     "github-slugger": "^2.0.0",
     "mdx-bundler": "^9.2.1",
     "next": "13.4.19",
