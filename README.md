@@ -4,37 +4,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
-- **Framework** : [NextJS](https://nextjs.org)
-- **Deployment** : [Vercel](https://vercel.com)
-- **Styling** : [Chakra UI](https://chakra-ui.com)
-
-## Todo
-
-- [x] Table of contents
-- [ ] Views count with prisma and planet scale
-- [ ] Portfolio Page
-- [ ] Now Page
-- [x] About page
-- [ ] Disqus Comment
-- [ ] Social Share
-- [x] Next.js 13 `app` directory
-
-## Running locally
-
-```shell
-git clone https://github.com/fransfilastap/fransfp.dev
-cd fransfp.dev
-yarn
+```bash
+npm run dev
+# or
 yarn dev
 # or
 pnpm dev
+# or
+bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 

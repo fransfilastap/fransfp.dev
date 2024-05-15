@@ -1,11 +1,6 @@
-export const parseBoolean = (value: string): boolean => {
-  if (value === 'true') {
-    return true;
-  }
+import { type ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-  if (value === 'false') {
-    return false;
-  }
-
-  return true;
-};
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}

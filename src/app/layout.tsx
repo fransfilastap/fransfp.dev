@@ -1,41 +1,28 @@
-import "./globals.css";
-import localFont from "next/font/local";
+import type { Metadata } from "next";
+import "@/styles/globals.css";
 import { Inter } from "next/font/google";
-import Navigation from "@/components/navigation";
+import { cn } from "@/lib/utils";
 import Script from "next/script";
 import { GA_MEASUREMENT_ID } from "@/config/env";
+import Meta from "@/config/meta";
+import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const instrumentSans = localFont({
-  src: "../fonts/instrument-sans/InstrumentSans[wdth,wght].woff2",
-  variable: "--font-instrument-sans",
-  preload: true,
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  preload: true,
-});
-
-const valverde = localFont({
-  src: "../fonts/valverde/Valverde-CondensedSemibold.woff2",
-  variable: "--font-valverde",
-  preload: true,
-});
-
-export const metadata = {
-  title: "Frans FP",
-  description: "Personal",
+export const metadata: Metadata = {
+  title: Meta.site_title,
+  description: Meta.site_description,
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta
           content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"
@@ -119,11 +106,21 @@ export default function RootLayout({
         <meta name="theme-color" content="#FFFFFF" />
       </head>
       <body
-        className={`${instrumentSans.variable} ${inter.variable} ${valverde.variable}`}
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          inter.variable
+        )}
       >
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
