@@ -1,0 +1,620 @@
+---
+slug: laravel-app-sso-wso2-identity-server-saml2
+title: Setup SAML2 based SSO with Laravel as Service Provider and WSO2 Identity Server as Identity Provider
+date: 2022-01-09
+cover: /posts/photo-1618044619888-009e412ff12a_whhhth.jpg
+author: Frans Filasta Pratama
+description: How to setup SAML2 in Laravel Framework with WSO2 Identity Server as Identity Provider
+tags:
+  - laravel
+  - sso
+  - wso2
+  - idenity server
+keywords: 'laravel, SSO, SAML'
+lastmod: 2022-12-08
+---
+
+## What is SAML2?
+
+SAML2 (Security Assertion Markup Language 2.0) is a version of the SAML standard for exchanging authentication and authorization identities between security domain (app). SAML2 uses security tokens containing assertions and user information in XML-based document. SAML2 enabling web-based, cross-domain SSO, which helps to reduce administrative overhead to user, by reducing credential information input in each security domain.
+
+In order to understand this tutorial, i think it’s necessary for you to familiarize with some basic concepts of SAML. Read about SAML [here](http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html)
+
+## What is Identity Server?
+
+The Identity Server is a server that manages securely identities such as employees, suppliers, partners, customers, etc. (any type of information that can be stored in a database as an entity has an identity); and access between systems and applications, with the possibility of using a single access and without the need to repeat credentials every time a user needs to use a Service Provider.
+
+WSO2 Identity Server is one of IAM product with API-driven, open-source, cloud-native feature. It is so easy to implement SSO authentication using WSO2 IS.
+
+![source : wso2.com](/media/laravel-app-sso-wso2-identity-server-saml2/wso2-architecture.png)
+
+## Laravel Setup
+
+1. Create new Laravel App (you can skip this if you had your project setup-ed)
+
+```shell
+composer create-project laravel/laravel laravel-wso2is
+```
+
+2. Install [aacotroneo/laravel-saml2](https://github.com/aacotroneo/). library.
+
+```shell
+composer require aacotroneo/laravel-saml2
+```
+
+3. Publish laravel-saml2 config file.
+
+```shell
+php artisan vendor:publish --provider="Aacotroneo\Saml2\Saml2ServiceProvider"
+```
+
+The command will add the files `app/config/saml2_settings.php` & `app/config/saml2/mytestidp1_idp_settings.php`
+, which you will need to customize.
+
+4. Define names of all the IDPs you want to configure in `app/config/saml2_settings.php` . The name of the IDP will show up in the URL used by the Saml2 routes the library makes, as well as internally in the filename for each IDP's config.
+
+```php
+'idpNames' => ['wso2is'],
+```
+
+5. Set `$this_idp_env_id = 'WSO2IS'` or any value, then you can set ENV vars starting with `SAML2_WSO2IS_`  respectively.
+
+```php
+SAML2_WSO2IS_IDP_ENTITYID=localhost
+SAML2_WSO2IS_IDP_HOST=https://localhost:9443/samlsso
+SAML2_WSO2IS_IDP_SSO_URL=https://localhost:9443/samlsso
+SAML2_WSO2IS_IDP_SL_URL=https://localhost:9443/samlsso
+SAML2_WSO2IS_IDP_x509=file:///var/www/resources/sso/wso2carbon.pem
+SAML2_WSO2IS_SP_ENTITYID=playground
+WSO2IS_USERSTORENAME=PRIMARY
+```
+
+6. In order to make single logout work properly, I need to extend Saml2Controller which provided by the library.
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Aacotroneo\Saml2\Saml2Auth;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Http\Request;
+
+class Wso2Saml2Controller extends Controller
+{
+   /**
+    * The guard implementation.
+    *
+    * @var \Illuminate\Contracts\Auth\StatefulGuard
+    */
+   protected $guard;
+
+   /**
+    * Create a new controller instance.
+    *
+    * @param  \Illuminate\Contracts\Auth\StatefulGuard  $guard
+    * @return void
+    */
+   public function __construct(StatefulGuard $guard)
+   {
+       $this->guard = $guard;
+   }
+
+   public function logout(Saml2Auth $saml2Auth, Request $request)
+   {
+       $request->session()->invalidate();
+       $request->session()->regenerateToken();
+
+       parent::logout($saml2Auth, $request);
+   }
+}
+```
+
+### Laravel Fortify vs Manual Authentication
+
+Laravel offers two different authentication mechanism. Using Laravel Fortify your life will be easier. Laravel Fortify is a frontend agnostic authentication backend implementation for Laravel. Fortify registers the routes and controllers needed to implement all of Laravel's authentication features, including login, registration, password reset, email verification, and more. Nonetheless, wether Fortify or manual authentication, it will not be that much different.
+
+1. (Optional) Install Laravel Jetstream. I use this starter pack for this article purpose (because i love this starter pack 🤣)
+
+```shell
+composer require laravel/jetstream
+```
+
+After installing the Jetstream package, you may execute the `jetstream:install` Artisan command. This command accepts the name of the stack you prefer (`livewire` or `inertia`). I prefer livewire.
+
+```shell
+php artisan jetstream:install livewire --teams
+```
+
+Then finalizing the installation
+
+```shell
+npm install
+npm run dev
+php artisan migrate
+php artisan vendor:publish --tag=jetstream-views
+```
+
+2. Now we’re done setup Laravel Jetstream with Livewire.
+
+![Livewire setup done](/media/laravel-app-sso-wso2-identity-server-saml2/livewire-setup-done.png)
+![Livewire login](/media/laravel-app-sso-wso2-identity-server-saml2/livewire-setup-done-2-login.png)
+
+## WSO2 Identity Server Setup
+
+Make sure you have JDK 8 or 11 installed in your server. If you have it installed you can continue to install WSO2 Identity server. Download the installer at [Identity Server - On-Premise and in the Cloud](https://wso2.com/identity-server/)
+
+1. Start the WSO2 Identity Server and go to [https://localhost:9443/carbon](https://localhost:9443/carbon) to access management console.
+
+```shell
+./wso2server.sh start
+```
+
+2. Create new Service Provider
+
+![WSO2 IS add new service provider](/media/laravel-app-sso-wso2-identity-server-saml2/wso2-add-service-provider.png)
+Click register to add new service provider. The service provider screen will appear.
+![WSO2 IS add new service provider-2](/media/laravel-app-sso-wso2-identity-server-saml2/wso2-add-service-provider-2.png)
+We need to upload certificate. Follow the steps bellow.
+
+- Go to the folder within the WSO2 Identity Server version */repository/resources/security*
+- Open a terminal and execute the following commands to export the keystone certificate.
+- The exported certificate will be in binary format.
+
+```shell
+keytool -export -keystore wso2carbon.jks -alias wso2carbon -file wso2carbon.crt
+```
+
+Convert the previous binary encrypted certificate to a PEM encrypted certificate.
+
+```shell
+openssl x509 -inform der -in wso2carbon.crt -out wso2carbon.pem
+```
+
+Upload pem file to service provider.
+
+![Upload pem file](/media/laravel-app-sso-wso2-identity-server-saml2/upload-pem-file.png)
+
+Claim configuration : wso2 local claim will be used. Givenname and emailaddress need to be added.
+
+![Claim configuration](/media/laravel-app-sso-wso2-identity-server-saml2/claim-configuration.png)
+
+Inbound Authentication Configuration: the responsibility of the inbound authenticator component is to identify and analyze all inbound authentication requests and then generate the corresponding response.
+
+To configure Inbound Authentication, on SAML2 Web SSO Section click on the Configure button, which will redirect you to the form that will request the information necessary to establish the connection between WSO2 Identity Server and the application that has been previously generated.
+
+Complete the form with the following information:
+| Field | Value | Description |
+|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Issuer | playgroundId | This is the `<saml element: Issuer>` containing the unique identifier of the service provider. This is also the sender value, specified in the SAML authentication request issued by the service provider. |
+| Assertion Consumer URLs | http://localhost/saml2/wso2is/metadata http://localhost/saml2/wso2is/sls http://localhost/saml2/wso2is/acl | This is the URL to which the browser should be redirected after successful authentication. |
+| Enable Response Signing | Selected | Sign the SAML2 responses returned after the authentication process. |
+| Enable Signature Validation in Authentication Requests and Logout Requests | Selected | This specifies whether the identity provider must validate the signature of the SAML2 authentication request and the SAML2 logout request sent by the service provider. |
+| Enable Single Logout | Selected | If single sign-off is enabled, the identity provider sends sign-off requests to all service providers. |
+| Enable Attribute Profile | Selected | The identity server provides support for a basic attribute profile where the identity provider can include the user’s attributes in the SAML statements as part of the attribute declaration. |
+| Always Include Attributes in the Response | Selected | The identity provider always includes the values of the attributes related to the selected statements in the SAML attribute declaration. |
+| Enable IdP Initiated SSO | Selected | When enabled, the service provider is not required to submit the SAML2 application. |
+| Enable idP Initiated SLO | Selected | When enabled, the service provider is not required to submit the SAML2 application. |
+
+Then, click on the Update button to update the information in the Service Provider.
+![Update Service Provider Information #1](/media/laravel-app-sso-wso2-identity-server-saml2/update-service-provider-info-1.png)
+![Update Service Provider Information #2](/media/laravel-app-sso-wso2-identity-server-saml2/update-service-provider-info-2.png)
+
+## Connecting WSO2 Identity Server to Laravel Application
+
+First, create new user in WSO2 Management Console. To create new user in WSO2 ,the following steps must be followed:
+
+- Click on Add, under Users and Roles.
+- Click on Add New User, on the page where the console was redirected.
+- You will be asked to fill out a form which contains basic user information, such as Username and Password
+
+![Add user](/media/laravel-app-sso-wso2-identity-server-saml2/add_user_1.png)
+
+Fill some field in User Profile
+
+![User profile](/media/laravel-app-sso-wso2-identity-server-saml2/add_user_profile.png)
+
+Create Event Listener to catch “logged in” event from WSO2 IS. Add this code to app\Providers\EventServiceProvider.php
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Aacotroneo\Saml2\Events\Saml2LoginEvent;
+use Aacotroneo\Saml2\Events\Saml2LogoutEvent;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Session;
+
+class EventServiceProvider extends ServiceProvider
+{
+  /**
+   * The event listener mappings for the application.
+   *
+   * @var array<class-string, array<int, class-string>>
+   */
+  protected $listen = [
+      Registered::class => [
+          SendEmailVerificationNotification::class,
+      ],
+  ];
+
+  /**
+   * Register any events for your application.
+   *
+   * @return void
+   */
+  public function boot()
+  {
+      Event::listen("Aacotroneo\Saml2\Events\Saml2LoginEvent", function (
+          Saml2LoginEvent $event
+      ) {
+          $user = $event->getSaml2User();
+          $synchronizer = new SyncUserFromWSO2();
+
+          $laravelUser = $synchronizer->sync($user);
+          Auth::login($laravelUser);
+      });
+
+      Event::listen("Aacotroneo\Saml2\Events\Saml2LogoutEvent", function (
+          Saml2LogoutEvent $event
+      ) {
+          Auth::logout();
+          Session::save();
+      });
+  }
+}
+```
+
+- Create an action class to “synchronize” laravel user with WSO2 IS user. Create class in **app/actions** folder.
+
+```php
+<?php
+
+namespace App\Actions;
+
+use Aacotroneo\Saml2\Saml2User;
+use App\Actions\WSO2ISClaims;
+use App\Models\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Facades\Hash;
+
+/**
+*
+* @package App\Actions
+*/
+class SyncUserFromWSO2
+{
+
+  private $DEFAULT_PASSWORD = 'wso2is';
+
+  public function sync(Saml2User $saml2User): User
+  {
+
+      if (!$this->isExistingUser($saml2User->getAttribute(WSO2ISClaims::$EMAIL_ADDRESS)[0])) {
+          return $this->create($saml2User);
+      }
+
+      return $this->updateUser($saml2User);
+  }
+
+
+  /**
+   * Check if user already exists
+   *
+   *
+   * @param string $email
+   * @return bool
+   */
+  public function isExistingUser(string $email)
+  {
+      $laravelUser = User::where(
+          "email",
+          $email
+      )->first();
+
+      return $laravelUser != null;
+  }
+
+
+  /**
+   *
+   * @param Saml2User $saml2User
+   * @return mixed
+   * @throws BindingResolutionException
+   */
+  public function create(Saml2User $saml2User)
+  {
+
+      $laravelUser = User::create([
+          "name" =>
+          $saml2User->getAttribute(WSO2ISClaims::$GIVEN_NAME)[0],
+          "username" => $saml2User->getAttribute(
+              WSO2ISClaims::$USERNAME
+          )[0],
+          "email" => $saml2User->getAttribute(
+              WSO2ISClaims::$EMAIL_ADDRESS
+          )[0],
+          'email_verified_at' => now(),
+          "password" => Hash::make($this->DEFAULT_PASSWORD),
+      ]);
+
+
+
+      return $laravelUser;
+  }
+
+
+  public function updateUser(Saml2User $saml2User)
+  {
+      $laravelUser = User::where(
+          "email",
+          $saml2User->getAttribute(
+              WSO2ISClaims::$EMAIL_ADDRESS
+          )[0]
+      )->first();
+
+      $laravelUser->name = $saml2User->getAttribute(WSO2ISClaims::$GIVEN_NAME)[0];
+      $laravelUser->username = $saml2User->getAttribute(WSO2ISClaims::$USERNAME)[0];
+      $laravelUser->email = $saml2User->getAttribute(WSO2ISClaims::$EMAIL_ADDRESS)[0];
+      $laravelUser->password = Hash::make($this->DEFAULT_PASSWORD);
+
+      $laravelUser->save();
+
+      return $laravelUser;
+  }
+}
+```
+
+```php
+<?php
+
+namespace App\Actions;
+
+final class WSO2ISClaims
+{
+  /**
+   * Username claim
+   * @var string
+   */
+  public static string $USERNAME = "http://wso2.org/claims/username";
+
+  /**
+   * Role claim
+   *
+   * @var string
+   */
+  public static string $ROLE = "http://wso2.org/claims/role";
+
+  /**
+   *
+   *
+   *
+   * @var string
+   */
+  public static string $DEPARTMENT = "http://wso2.org/claims/department";
+
+  /**
+   * Email Address
+   *
+   * @var string
+   */
+  public static string $EMAIL_ADDRESS = "http://wso2.org/claims/emailaddress";
+
+  /**
+   *
+   * Lastname
+   *
+   * @var string
+   */
+  public static string $LAST_NAME = "http://wso2.org/claims/lastname";
+
+  /**
+   * Fullname
+   *
+   * @var string
+   */
+  public static string $GIVEN_NAME = "http://wso2.org/claims/givenname";
+
+
+  /**
+   *
+   * @var string
+   */
+  public static string $USER_PRINCIPAL = "http://wso2.org/claims/userprincipal";
+
+
+  /**
+   *
+   * @var string
+   */
+  public static string $IS_READONLY_USER = "http://wso2.org/claims/identity/isReadOnlyUser";
+
+
+  /**
+   *
+   * @var string
+   */
+  public static string $MODIFIED = "http://wso2.org/claims/modified";
+
+
+  /**
+   *
+   * @var string
+   */
+  public static string $FULL_NAME = "http://wso2.org/claims/fullname";
+
+
+  /**
+   *
+   * @var string
+   */
+  public static string $CREATED = "http://wso2.org/claims/created";
+
+
+  /**
+   *
+   * @var string
+   */
+  public static string $RESOURCE_TYPE = "http://wso2.org/claims/resourceType";
+
+
+  /**
+   *
+   * @var string
+   */
+  public static string $USERID = "http://wso2.org/claims/userid";
+}
+```
+
+These classes will synchronize laravel user data with WSO2 IS user data every time user logged in to laravel application.
+
+At this state, your laravel application should connected to WSO2 IS. BUT, we need some additional configuration to make laravel save authenticated session correctly by using “laravel way”. Edit saml2_config.php file and define “routesMiddleware”.
+
+```php
+<?php
+
+"routesMiddleware" => ["saml"],
+```
+
+- Then create new middleware entry at app\Http\Kernel.php
+
+```php
+<?php
+
+protected $middlewareGroups = [
+...
+"saml" => [
+          \App\Http\Middleware\EncryptCookies::class,
+          \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+          \Illuminate\Session\Middleware\StartSession::class,
+      ],
+];
+```
+
+Now this Laravel Application will generate session for authenticated user correctly. BUT We are not done yet. Many time your user maybe authenticated on other service provider in your organization. In this case laravel should ask WSO2 IS first wether the users is authenticated or not. If authenticated then we should bypass them.
+
+- Create new middleware by using this command :
+
+```shell
+php artisan make:middleware Saml2Authenticate
+```
+
+- Open the file and add code bellow :
+
+```php
+<?php
+
+namespace App\Http\Middleware;
+
+use Aacotroneo\Saml2\Saml2Auth;
+use Closure;
+use Illuminate\Auth\Middleware\Authenticate;
+
+/**
+* @package App\Http\Middleware
+*/
+class Saml2Authenticate extends Authenticate
+{
+
+protected function authenticate($request, array $guards)
+{
+  $saml2Auth = new Saml2Auth(Saml2Auth::loadOneLoginAuthFromIpdConfig('wso2is'));
+  $login = $saml2Auth->login();
+}
+
+public function handle($request, Closure $next, ...$guards)
+{
+
+  if (empty($guards)) {
+      $guards = [null];
+  }
+
+  foreach ($guards as $guard) {
+      if ($this->auth->guard($guard)->check()) {
+          return $next($request);
+      }
+  }
+
+  $this->authenticate($request, $guards);
+}
+
+protected function redirectTo($request)
+{
+  if (!$request->expectsJson()) {
+      return route("login");
+  }
+}
+}
+```
+
+- Then register this new middleware to app\Http\Kernel.php
+
+```php
+<?php
+
+...
+
+protected $routeMiddleware = [
+...
+'saml2auth' => \App\Http\Middleware\Saml2Authenticate::class,
+];
+```
+
+- Apply the middleware to your routes/web.php.
+
+```php
+<?php
+
+...
+
+Route::middleware(['saml2auth', 'verified'])->get('/dashboard', function () {
+  return view('dashboard');
+})->name('dashboard');
+```
+
+Next, modify your login page. It should be just a landing page which as a button or link to redirect your app authentication to WSO2 IS login page. In this article i made it just like this :
+
+![Login](/media/laravel-app-sso-wso2-identity-server-saml2/modified_login_page.png)
+
+```php
+<x-guest-layout>
+<x-jet-authentication-card>
+  <x-slot name="logo">
+      <x-jet-authentication-card-logo />
+  </x-slot>
+
+  <x-jet-validation-errors class="mb-4" />
+
+  <div class="mb-4 text-sm font-medium text-green-600">
+      Hello!
+  </div>
+
+  <div class="flex flex-col mt-8">
+      <a href="{{ route('saml2_login', ['wso2is']) }}"
+          class="px-4 py-2 text-sm font-semibold text-center text-white bg-blue-500 rounded hover:bg-blue-700">
+          Login with WSO2IS
+      </a>
+  </div>
+
+</x-jet-authentication-card>
+</x-guest-layout>
+```
+
+Focus at route(’saml2_login’,\[’wso2is’]). This route name is defined by laravel-saml library. Use this route with your defined “idpNames” in saml2_settings.php file. You must use route saml2_logout too to logout the app.
+
+## Results and Conclusions
+
+As you walk along this tutorial, using laravel (jetstream) you can establish a connection using the SAML2 to WSO2 IS. It’s very simple and fast in development.
+
+![Login](/media/laravel-app-sso-wso2-identity-server-saml2/login.png)
+
+![Success Login](/media/laravel-app-sso-wso2-identity-server-saml2/login_success.png)
+
+Clone bellow repository to see complete source code of this tutorial.
+
+[https://github.com/fransfilastap/laravel-wso2is](https://github.com/fransfilastap/laravel-wso2is)
