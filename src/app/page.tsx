@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <section>
       <Masthead />
-      <Suspense fallback={<PostsLoading/>}>
+      <Suspense fallback={<div className={"xcontainer mx-auto"}><PostsLoading/></div>}>
         <FeaturedBlogPosts posts={posts} />
       </Suspense>
     </section>

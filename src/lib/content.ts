@@ -45,7 +45,10 @@ const allPosts = async function () {
     })
   );
 
-  return allPostsData;
+  return allPostsData.sort((a,b)=> {
+    // @ts-ignore
+    return b.metadata.date - a.metadata.date
+  });
 };
 
 export { allPosts };
