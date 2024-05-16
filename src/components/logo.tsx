@@ -1,12 +1,10 @@
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
+import { ClassNameValue } from "tailwind-merge";
 
 export default function Logo() {
   return (
-    <Link
-      href={"/"}
-      className="inline-block p-2 font-semibold transition-colors duration-100 rounded-lg hover:bg-slate-100"
-    >
-      FFP 🧑🏻‍💻
+    <Link href={"/"} className="inline-block text-xl font-extrabold">
+      FFP.
     </Link>
   );
 }

@@ -1,0 +1,242 @@
+---
+slug: code-consistent-husky-eslint-prettier-lint-staged
+title: Keep Your Code Consistent using Husky, ESLint, Prettier, and Lint-staged
+date: 2022-11-23
+cover: /posts/photo-1556075798-4825dfaaf498_u6cwib.jpg
+author: Frans Filasta Pratama
+description:
+  Setup javascript/typescript project for better quality code and developer
+  experience.
+tags:
+  - Coding
+  - Developer Experience
+keywords: "Husky, ESLint, prettier, lint-staged, developer experience, Git Hooks "
+lastmod: 2022-11-26
+---
+
+When I was in the early phase of learning software development, a working code is what all mattered. As my experience progressed, I learned the importance to write standardized, and no 💩 code. Most of the time it's normal that some 💩 code is being pushed into a repository. We're just human beings. We made mistakes.
+
+Sometimes, it wasn't a big deal to have 💩 code in a repository, but a few times I found myself needing hours to find a bug after such a commit. It'll be messier when we are working with a team. We need a tool to prevent us from committing a code that contained errors and saving time for us. That’s one reason why we need linter.
+
+> Lint, or a linter, is a static code analysis tool used to flag programming errors, bugs, stylistic errors, and suspicious constructs. The term originates from a Unix utility that examined C language source code. --- [Wikipedia](<https://en.wikipedia.org/wiki/Lint_(software)>)
+
+The idea is to leverage Git hooks (pre-commit) to check our code before the code is pushed to a repository.
+
+In this article, we'll automate the linting process using linter (ESLint), code formatter (Prettier), Git Hooks (Husky), and Lint-stagged to make sure the code is formatted and fixed before being pushed to a repository.
+
+## Required packages installation
+
+We'll install the listed packages below:
+
+- **ESLint** - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, to make code more consistent and avoid bugs
+- **Prettier** - is a code formatter based on configuration (.prettierrc)
+- **Lint-staged** - is a tool to lint staged git files
+- **Husky** - is a tool to work with git workflow (Git hooks). See [this](https://git-scm.com/docs/githooks) for more detail regarding git hooks.
+
+Run this command to install the required packages :
+
+```shell
+yarn add -D eslint prettier lint-staged husky
+```
+
+if your are using **npm**, run this command:
+
+```shell
+npm install --save-dev eslint prettier lint-staged husky
+```
+
+## ESLint Configuration
+
+Let's start setup some configurations for the packages. I'll start with ESLint first. To begin ESLint you can run this command:
+
+```shell
+yarn eslint --init
+```
+
+or
+
+```shell
+npx eslint --init
+```
+
+You'll be prompted with some questions, answer according to your project specification.
+
+![eslint config](/media/code-consistent-husky-eslint-prettier-lint-staged/eslint-init.png)
+
+The configuration file would look something like the below:
+
+```json {title:"eslintrc.json"} showLineNumbers {copy:true} {footer:true}
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb"],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {}
+}
+```
+
+There is an alternative to the previous command. Just create eslintrc.json and paste the above configuration into it.
+
+To override the code style enforcement you need to insert your style in the `rules` section. Read more about ESLint rules by reading the [documentation](https://eslint.org/docs/latest/rules/).
+
+Here is an example of `eslintrc.json`
+
+```json showLineNumbers {title:"eslintrc.json"}
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb"],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-console": "error",
+    "indent": ["warn", "tab"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "always"]
+  }
+}
+```
+
+### The eslintignore File
+
+You can tell ESLint to ignore specific files and directories by creating a .eslintignore file in your project’s root directory.
+
+for example, the following omit linting on node_modules, dist, and .next directory.
+
+```text {title:".eslintignore"}
+node_modules
+dist
+.next
+```
+
+## Prettier Configuration
+
+Create an empty file named `.prettierrc.json`.
+
+There are various rules for the prettier configuration files. Take a look at [Prettier Documentation](https://prettier.io/docs/en/options.html).
+
+Here is an example of the configuration.
+
+```json {title:".prettierrc"}
+{
+  "trailingComma": "es5",
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true
+}
+```
+
+You can ignore some files to be formatted by prettier by creating an empty file named `.prettierignore`.
+
+Here is an example of prettier ignore configuration:
+
+```text {title:".prettierignore"}
+# Ignore artifacts:
+build
+coverage
+.next
+
+# Ignore all HTML files:
+*.html
+```
+
+## Lint-Staged Configuration
+
+There are several ways to configure `lint-staged` in your project:
+
+- `lint-staged` object in `package.json`
+- `.lintstagedrc` file in JSON/YAML format
+- `.lint-staged.config.js`
+
+Here is an example `lint-staged` configuration using an object in `package.json`
+
+```json {title:"package.json"}
+{
+...
+"lint-staged":{
+    "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "src/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write --ignore-unknown"
+  }
+}
+```
+
+By default, lint-staged will run configured tasks concurrently. This means that for every glob, all the commands will be started at the same time. With the above config, both eslint and prettier will run at the same time.
+
+## Configure Husky
+
+In this section, we'll configure git hooks using Husky.
+
+1. Enable hooks
+
+```shell
+yarn husky install
+```
+
+or
+
+```shell
+npx husky install
+```
+
+2. Optional, add prepare script in package.json to automatically enable husky after install
+
+```json {title:"package.json"}
+{
+...
+"scripts":{
+... //other scripts
+"prepare": "husky install"
+}
+}
+```
+
+3. Add lint-staged command in pre-commit hooks
+
+```shell
+yarn husky add .husky/pre-commit "yarn lint-staged"
+```
+
+It'll generate file in `.husky/pre-commit` with below content:
+
+```bash {title:".huskty/pre-commit"}
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn lint-staged
+
+```
+
+Now, we've finished all the configuration needed. Now try to commit our code changes.
+
+```shell
+git add .
+git commit -m "first init"
+```
+
+If there is a linting error in your code, your commit will be automatically aborted. Fix the code informed by ESLint and try again until you're successfully committed a clean code to your repository.
+
+## Further resources
+
+Here are some references to improve the understanding regarding DX (Developer Experience)
+
+- [ESLint Documentation](https://eslint.org/docs/latest/user-guide/getting-started)
+- [Prettier Documentation](https://prettier.io/docs/en/index.html)
+- [Husky Documentation](https://typicode.github.io/husky/)
+- [Lint-staged](https://github.com/okonet/lint-staged)
+- [Conventional Commit Messages](https://www.conventionalcommits.org)
+- [Commitlint - Lint commit messages](https://github.com/conventional-changelog/commitlint)
+- [Commitizen - Prompt tool to make your commit messages formatted according to standard](https://github.com/commitizen/cz-cli)

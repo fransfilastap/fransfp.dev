@@ -1,0 +1,56 @@
+---
+slug: membangun-portal-partisipasi-hukum-masyarakat-dengan-next-js-dan-strapi
+title: Membangun Portal Partisipasi Hukum Masyarakat dengan NextJS dan Strapi
+date: 2023-03-18
+author: Frans Filasta Pratama
+cover: /posts/og_rqtoq7.jpg
+description: Cerita dibalik migrasi Partisipasiku - Sebuah Portal Partisipasi masyarakat terkait isu hukum/peraturan perundang-undangan - dari laravel ke NextJS x Strapi
+tags:
+  - e-government
+  - NextJS
+  - Strapi
+  - React
+  - Coding
+lastmod: 2023-03-18
+---
+
+Menjadi Pegawai Negeri Sipil atau PNS adalah salah satu keputusan terbesar dalam hidup saya. Banyak keuntungan dan peluang yang saya tinggalkan dari parir yang saya bangun sebelumnya seperti budaya kerja yang modern, lingkungan kerja yang kental dengan anak muda, dan menjadi _spotlight_ di perusahaan. Namun menjadi PNS juga memiliki daya tarik tersendiri, yaitu peluang meninggalkan _legacy_. Dunia birokrasi memiliki banyak ruang untuk kita _improve_ walaupun akan banyak halangan sebesar tembok cina 😂.
+
+Ini adalah cerita tentang salah satu ruang _improvement_ yang bisa kita lakukan sebagai enabler. Tahun 2018, ketika saya baru memulai karir sebagai PNS saya mendapatkan permintaan untuk membuat portal partisipasi masyarakat terkait peraturan perundang-undangan _existing_ dalam rangka mendukung program presiden untuk melakukan deregulasi — usaha untuk mengurangi peraturan yang tumpang tindih dan mempersulit kemudahan berusaha (_ease of doing business_). Partisipasi masyarakat ini akan dijadikan salah satu bahan dalam proses analisis dan evaluasi peraturan perundang-undangan. Sudah banyak kajian terkait perlunya partisipasi masyarakat dalam pembentukan peraturan perundang-undangan, salah satunya adalah tulisan mantan bos Saya [ini](https://rechtsvinding.bphn.go.id/ejournal/index.php/jrv/article/view/88) (waktu itu masih bos saya). Bahkan sebenarnya partisipasi masyarakat sudah diatur dalam Undang-Undang No. 12 Tahun 2011 tentang Pembentukan Peraturan Perundang-Undangan sebagaimana telah diubah dengan Undang-Undang No. 13 tahun 2022 tentang Perubahan kedua atas Undang-Undang 12 tahun 2011 tentang Pembentukan Peraturan Perundang-Undangan tetapi juga pada tahap evaluasi peraturan perundang-undangan. Lebih jauh lagi, pemerintah/DPR harus mempertimbangkan Putusan Mahkamah Konstitusi (MK) No.91/PUU-XVIII/2020, yang memberikan arahan untuk melakukan partisipasi masyarakat yang bermakna (meaningfull participation) dalam proses pembentukan perundang-undangan. Nah, dengan banyaknya peluang,amanat UU, dan _request_ dari kantor, lahirlah [Partisipasiku](https://partisipasiku.bphn.go.id) ke dunia di tahun 2018.
+
+## Sebuah Keresahan
+
+Versi awal Partisipasiku adalah sebuah portal web yang dibangun menggunakan framework Laravel. Struktur _database_ dibuat sedemikian rupa agar dapat sejalan dengan cara kerja analisis dan evaluasi hukum yang dibagi berdasarkan tema/kelompok kerja. Masing-masing kelompok herja melakukan analisis dan evaluasi terhadap beragam peraturan perundang-undangan. Formulir pertanyaan yang disuguhkan kepada masyarakat juga dinamis, menyesuaikan dengan isu pada peraturan-perundang-undangan yang dianalisis.
+
+Arsitektur yang saya buat pada versi awal, pada mulanya berjalan dengan cukup baik. Sampai akhirnya di tahun 2019 terdapat kebutuhan untuk menggalang partisipasi masyarakat di tahap perencanaan peraturan perundang-undangan (_ex-ante_) seperti pada tahap penyusunan naskah akademik , atau pada tahap penyelarasan naskah akademik. Ternyata struktur yang saya buat waktu itu tidak memungkinkan untuk saya mengakomodir dengan cepat kebutuhan tersebut. Walaupun kebutuhannya lebih sederhana, saya diharuskan bekerja lebih karena tidak dapat ada cara cepat untuk re-use komponen yang sudah ada. Ditambah lagi ketika saya review, penggunaan modul analisis dań evaluasi ternyata tidak sesering yang saya kira, traffic pun sangat sedikit. Rasa-rasanya effort untuk merancang dan mengembangan struktur data yang komplek seperti seperti yang saya ceritakan sebelumnya jadi sia-sia.
+
+Puncaknya adalah ketika RUU KUHP menjadi perhatian publik. Terjadi pergeseran cara kerja pada partisipasiku yang sebelumnya dibagi berdasarkan fungsi/tugas perbagian di organisasi menjadi berdasarkan isu yang mungkin akan atau sedang populer di masyarakat. Menuliskan konten dengan dibungkus “isu” ternyata lebih berhasil dibandingkan dikotak-kotakan berdasarkan tugas/fungsi, mungkin karena lebih "merakyat".
+
+> Sebagai informasi di kantor saya ada unit eselon II yang bertugas melakukan analisis dan evaluasi hukum, ada yang melakukan perencanaan hukum, penyusunan naskah akademik, dań penyelarasan naskah akademik.
+
+## Sebuah Peluang
+
+Saya adalah tipe orang yang akan sangat semangat belajar sebuah teknologi jika langsung diterapkan pada kasus nyata. Saya pikir ini adalah saat yang pas untuk merombak Partisipasiku ini dengan Next JS — salah satu react js framework yang paling popular saat ini. Saya putuskan untuk menggunakan Next JS untuk front-end (NextJS adalah fullstack framework) . NextJS memiliki menawarkan banyak kemudahan bagi developer untuk dapat meningkatkan score [Web Vitals](https://web.dev/vitals/). Saya juga memutuskan menggunakan [Strapi - Open source Node.js Headless CMS 🚀](https://strapi.io/) sebagai CMS. Pemilihan Strapi sebagai CMS adalah karena miliki fitur yang lengkap seperti low code content type creation, built in REST API dan Graphql, dan mudah di integrasikan dengan Layanan lain seperti ChatGPT. Saya pikir akan sangat memudahkan pekerjaan saya jika memiliki tools yang low code, mengingat kantor saya hanya memiliki dua pegawai yang bisa ngoding.
+
+Saya juga melakukan perombakan design Partisipasiku. Saya meniru Geist Design System yang digunakan Vercel.
+
+## Hasil - Performa
+
+Saat ini hasilnya dapat dilihat di [Partisipasiku!](http://partisipasiku.bphn.go.id). Score Web Vitals Metrics meningkat jauh dibandingkan versi sebelumnya walaupun masih banyak ruang untuk _improvement_ , salah satunya performa server. Saat ini partisipasiku di-hosting di data center Kementerian Hukum dan HAM RI namun performa nya fluktuatif. Berbeda jauh dengan score yang di dapat jika di host langsung di Vercel.
+
+### Perbandingan Vercel vs Data Center
+
+_Vercel_
+
+![Score untuk mobile (hosted on Vercel)](/media/membangun-portal-partisipasi-hukum-masyarakat-dengan-next-js-dan-strapi/core-web-vitals_vercel_1.png)
+![Score untuk Desktop (hosted on Vercel)](/media/membangun-portal-partisipasi-hukum-masyarakat-dengan-next-js-dan-strapi/core-web-vitals_vercel_2.png)
+
+_Data Center_
+
+![Score untuk mobile (hosted on Data Center)](/media/membangun-portal-partisipasi-hukum-masyarakat-dengan-next-js-dan-strapi/core-web-vital_DC_1.png)
+
+![Score untuk Desktop (hosted on Data Center)](/media/membangun-portal-partisipasi-hukum-masyarakat-dengan-next-js-dan-strapi/core-web-vital_DC_2.png)
+
+### Replikasi dan Kolaborasi
+
+Saat ini Partisipasiku juga sudah dijadikan contoh oleh Kementerian Kesehatan dengan portal [PartisipasiSehat](https://partisipasisehat.kemkes.go.id/) dan digunakan oleh kementerian keuangan untuk menggalang partisipasi masyarakat dalam penyusunan RUU Penilai.

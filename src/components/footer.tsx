@@ -2,8 +2,12 @@ import Logo from "./logo";
 
 export default function Footer() {
   return (
-    <footer className="container flex flex-row w-screen py-4 bg-background">
-      <small>FRANS</small>
+    <footer className="flex flex-col items-center justify-center p-4">
+      <div className="mx-auto xcontainer max-w-max">
+        <p className="text-sm font-light">
+          Copyright &copy; 2024 - Frans Filasta P. All rights reserved
+        </p>
+      </div>
     </footer>
   );
 }
