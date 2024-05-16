@@ -23,7 +23,7 @@ export default async function AboutPage() {
   const metadata = frontmatter as PostMetadata;
   return (
     <section className="py-3 xcontainer">
-      <article className="mx-auto prose md:prose-md lg:prose-md xl:prose-md text-foreground">
+      <article className="mx-auto prose md:prose-md lg:prose-md xl:prose-md text-foreground prose-headings:text-accent-foreground prose-blockquote:text-muted-foreground prose-a:text-blue-500">
         <h1 className="my-2">{metadata.title}</h1>
         {content}
       </article>

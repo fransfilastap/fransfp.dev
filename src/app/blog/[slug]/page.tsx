@@ -50,9 +50,9 @@ export default async function PostPage({
   }
 
   return (
-    <section className="py-3 xcontainer">
-      <article className="mx-auto prose md:prose-md lg:prose-md xl:prose-md text-foreground">
-        <h1>{post.metadata.title}</h1>
+    <section className="py-6 xcontainer">
+      <article className="mx-auto prose md:prose-md lg:prose-md xl:prose-md text-foreground prose-headings:text-accent-foreground prose-blockquote:text-muted-foreground prose-a:text-blue-500">
+        <h1 className={""}>{post.metadata.title}</h1>
         {content}
       </article>
     </section>
