@@ -8,11 +8,11 @@ import React, {
 } from 'react'
 import Image, { ImageProps } from 'next/image'
 
-type CustomLinkProps = ComponentPropsWithoutRef<"a">;
+type CustomLinkProps = ComponentPropsWithoutRef<'a'>;
 const CustomLink: FunctionComponent<CustomLinkProps> = (props) => {
-  const href = props.href;
+  const href = props.href
 
-  if (href?.startsWith("/")) {
+  if (href?.startsWith('/')) {
     return (
       <Link
         href={href!}
@@ -20,11 +20,11 @@ const CustomLink: FunctionComponent<CustomLinkProps> = (props) => {
       >
         {props.children}
       </Link>
-    );
+    )
   }
 
-  if (href?.startsWith("#")) {
-    return <a {...props} />;
+  if (href?.startsWith('#')) {
+    return <a {...props} />
   }
 
   return (
@@ -33,8 +33,8 @@ const CustomLink: FunctionComponent<CustomLinkProps> = (props) => {
       rel="noopener noreferrer"
       {...props}
     />
-  );
-};
+  )
+}
 
 const RoundedImage: FunctionComponent<
   DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
@@ -61,7 +61,7 @@ function slugify (str: string) {
 }
 
 function createHeadingElement (level: number) {
-  return (props: { children: ReactNode }): ReactElement => {
+  const element = (props: { children: ReactNode }): ReactElement => {
     const slug = slugify(props.children as string)
     return React.createElement(`h${level}`, {
         id: slug
@@ -75,12 +75,14 @@ function createHeadingElement (level: number) {
       props.children
     )
   }
+
+  element.displayName = `H${level}`
+  return element
 }
 
-function Strong(props:ComponentPropsWithoutRef<"strong">){
+function Strong (props: ComponentPropsWithoutRef<'strong'>) {
   return <strong className="text-foreground" {...props}>{props.children}</strong>
 }
-
 
 export const components = {
   h1: createHeadingElement(1),
