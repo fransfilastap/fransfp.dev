@@ -1,8 +1,4 @@
 import { ImageResponse } from 'next/og'
-import Meta from "@/config/meta";
-import path from 'path'
-import { BASE_URL } from '@/config/env'
-import { geistMedium } from '@/fonts'
 import { allPosts } from '@/lib/content'
 
 // Image metadata
