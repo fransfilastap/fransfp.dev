@@ -1,31 +1,20 @@
-import { PostMetadata } from "@/lib/content";
-import { readFile } from "fs/promises";
-import { compileMDX } from "next-mdx-remote/rsc";
-import path from "path";
+import { ContentMetadata, readMdx } from '@/lib/content'
+import path from 'path'
 
 async function loadAboutPage() {
   const mdxDir = path.join(process.cwd(), "src/app/about/mdx");
-  const fileContent = await readFile(path.join(mdxDir, "about.mdx"), "utf-8");
-  const { content, frontmatter } = await compileMDX({
-    source: fileContent,
-    options: {
-      parseFrontmatter: true,
-    },
-  });
+  const aboutMdx = path.join(mdxDir, "about.mdx")
 
-  return {
-    content,
-    frontmatter,
-  };
+  return await readMdx(aboutMdx)
 }
 export default async function AboutPage() {
-  const { content, frontmatter } = await loadAboutPage();
-  const metadata = frontmatter as PostMetadata;
+  const about = await loadAboutPage();
+
   return (
     <section className="py-3 xcontainer">
       <article className="mx-auto prose md:prose-md lg:prose-md xl:prose-md text-foreground prose-headings:text-accent-foreground prose-blockquote:text-muted-foreground prose-a:text-blue-500">
-        <h1 className="my-2">{metadata.title}</h1>
-        {content}
+        <h1 className="my-2">{about.metadata.title}</h1>
+        {about.content}
       </article>
     </section>
   );

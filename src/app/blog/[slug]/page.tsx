@@ -3,6 +3,7 @@ import { allPosts } from "@/lib/content";
 import { Metadata, ResolvingMetadata } from "next";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
+import remarkGfm from 'remark-gfm'
 
 export async function generateStaticParams() {
   const posts = await allPosts();
@@ -40,10 +41,6 @@ export default async function PostPage({
   const { slug } = params;
 
   const post = (await allPosts()).find((post) => post.metadata.slug === slug);
-  const { content } = await compileMDX({
-    source: post?.content!,
-    components: components,
-  });
 
   if (!post) {
     notFound();
@@ -52,8 +49,9 @@ export default async function PostPage({
   return (
     <section className="py-6 xcontainer">
       <article className="mx-auto prose md:prose-md lg:prose-md xl:prose-md text-foreground prose-headings:text-accent-foreground prose-blockquote:text-muted-foreground prose-a:text-blue-500">
-        <h1 className={""}>{post.metadata.title}</h1>
-        {content}
+        <h1 className={"font-light"}>{post.metadata.title}</h1>
+        <span className="text-muted-foreground font-light text-sm">{ post.metadata.date.toDateString() }</span>
+        {post.content}
       </article>
     </section>
   );

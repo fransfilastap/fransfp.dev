@@ -1,6 +1,6 @@
 import PostCard, { PostList } from "@/components/blog";
 import { Button } from "@/components/ui/button";
-import { PostMDX, allPosts } from "@/lib/content";
+import { MdxContent, allPosts } from "@/lib/content";
 import { compareDesc } from "date-fns";
 import Link from "next/link";
 import { Suspense } from 'react'
@@ -36,7 +36,7 @@ function Masthead() {
   );
 }
 
-function FeaturedBlogPosts({ posts }: { posts: PostMDX[] }) {
+function FeaturedBlogPosts({ posts }: { posts: MdxContent[] }) {
   return (
     <section className="flex flex-col gap-2 xcontainer">
       <h2 className="my-3 text-xl font-semibold">Featured Posts</h2>

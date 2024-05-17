@@ -118,7 +118,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main>{children}</main>
+          <main className="py-10">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

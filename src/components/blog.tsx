@@ -1,9 +1,9 @@
-import { PostMDX, PostMetadata } from "@/lib/content";
+import { MdxContent, ContentMetadata } from "@/lib/content";
 import Link from "next/link";
 import { ComponentPropsWithoutRef } from "react";
 
 export type PostCardProps = ComponentPropsWithoutRef<"article"> & {
-  post: PostMetadata;
+  post: ContentMetadata;
 };
 export default function PostCard({ post, ...rest }: PostCardProps) {
   return (
@@ -16,7 +16,7 @@ export default function PostCard({ post, ...rest }: PostCardProps) {
   );
 }
 
-export function PostList({ posts }: { posts: PostMDX[] }) {
+export function PostList({ posts }: { posts: MdxContent[] }) {
   return (
     <div className="grid grid-cols-1 gap-2 2xl:grid-cols-2">
       {posts.map((post, i) => (

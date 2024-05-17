@@ -1,13 +1,15 @@
 import { readFile, readdir } from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
+import { compileMDX } from 'next-mdx-remote/rsc'
+import remarkGfm from 'remark-gfm'
 
-export type PostMDX = {
-  metadata: PostMetadata;
-  content: string;
+export type MdxContent = {
+  metadata: ContentMetadata;
+  content: any;
 };
 
-export type PostMetadata = {
+export type ContentMetadata = {
   title: string;
   description: string;
   slug: string;
@@ -26,22 +28,8 @@ const allPosts = async function () {
   const allPostsData = await Promise.all(
     mdxFiles.map(async (fileName) => {
       const fullPath = path.join(postsDirectory, fileName);
-      const fileContents = await readFile(fullPath, "utf-8");
-      // gray-matter
-      const matterResult = matter(fileContents);
-      const slug = fileName.replace(/\.mdx$/, "");
-      return {
-        metadata: {
-          title: matterResult.data.title,
-          description: matterResult.data.description,
-          author: matterResult.data.author,
-          date: matterResult.data.date,
-          lastmod: matterResult.data.lastmod,
-          keywords: matterResult.data.keyword,
-          slug: slug,
-        },
-        content: matterResult.content,
-      } as PostMDX;
+
+      return await readMdx(fullPath)
     })
   );
 
@@ -51,4 +39,36 @@ const allPosts = async function () {
   });
 };
 
-export { allPosts };
+async function readMdx(filepath:string): Promise<MdxContent>{
+  const fileContents = await readFile(filepath, "utf-8");
+
+  // gray-matter
+  const matterResult = matter(fileContents);
+  const slug = path.basename(filepath).replace(/\.mdx$/, "")
+
+  const { content } = await compileMDX({
+    source: matterResult.content,
+    options: {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [],
+        format: 'mdx',
+      },
+    }
+  });
+
+  return {
+    metadata: {
+      title: matterResult.data.title,
+      description: matterResult.data.description,
+      author: matterResult.data.author,
+      date: matterResult.data.date,
+      lastmod: matterResult.data.lastmod,
+      keywords: matterResult.data.keyword,
+      slug: slug,
+    },
+    content: content,
+  } as MdxContent;
+}
+
+export { allPosts, readMdx };
