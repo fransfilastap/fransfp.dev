@@ -9,7 +9,7 @@ export default function PostCard({ post, ...rest }: PostCardProps) {
   return (
     <Link href={`/${post.slug}`}>
       <article className="py-2 transition-all duration-75 group" {...rest}>
-        <h2 className="font-medium hover:text-blue-500">{post.title}</h2>
+        <h2 className="font-bold hover:text-blue-500 text-lg">{post.title}</h2>
         <p className="font-light">{post.description}</p>
       </article>
     </Link>

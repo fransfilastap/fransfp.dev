@@ -25,6 +25,9 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
     description: post?.metadata.description,
     authors: post?.metadata.author,
     keywords: post?.metadata.keywords,
+    date: post?.metadata.date,
+    slug: post?.metadata.slug,
+    parent,
   } as Metadata;
 }
 
