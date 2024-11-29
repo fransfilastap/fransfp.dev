@@ -1,4 +1,4 @@
-import { ContentMetadata, readMdx } from '@/lib/content'
+import { readMdx } from '@/lib/content'
 import path from 'path'
 
 async function loadAboutPage() {

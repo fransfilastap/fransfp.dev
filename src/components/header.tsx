@@ -18,14 +18,10 @@ import { CommandMenu } from '@/components/command'
 
 export default function Header() {
   return (
-    <header className="py-4 bg-background border-b border-b-slate-50 dark:border-b-slate-800">
+    <header className="sticky top-0 py-2.5 bg-background border-b border-b-slate-50 dark:border-b-slate-800">
       <div className="flex justify-between xcontainer">
         <Logo />
-        <Navigation className="hidden md:flex" />
-        <div className="flex flex-row">
-          <CommandMenu/>
-          <ModeToggle />
-        </div>
+        <Navigation />
       </div>
     </header>
   );
@@ -38,21 +34,14 @@ function Navigation(props: NavigationMenuProps) {
         <NavigationMenuItem>
           <Link href={"/"} legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Home
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href={"/blog"} legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Posts
+              ~/
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link href={"/about"} legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About
+              /about-me
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

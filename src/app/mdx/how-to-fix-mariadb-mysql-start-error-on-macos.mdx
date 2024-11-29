@@ -1,0 +1,43 @@
+---
+title: "How to fix MySQL / MariaDB Start Issue on macOS"
+date: 2024-11-29
+author: "Frans Filasta Pratama"
+description: Quick solutions for fixing MySQL/MariaDB startup issues on macOS.
+---
+
+## TL;DR:
+To resolve MySQL/MariaDB startup errors on macOS, simply delete the tc.log file:
+```bash
+rm /opt/homebrew/var/mysql/tc.log
+```
+
+### Stuck with MySQL/MariaDB Startup Errors on macOS? Here’s the Fix! 🚀
+Have you ever encountered an error while trying to start MySQL or MariaDB on your Mac? It might look something like this:
+
+```bash
+mysql.server start
+/opt/homebrew/Cellar/mariadb/11.6.2/bin/mysql.server: line 264: kill: (12262) - No such process ERROR!
+```
+Frustrating, right?
+
+I dealt with this issue for months. Since PostgreSQL has become my go-to database, I kept postponing the fix. But recently, I had to dust off an old project that still relies on MySQL/MariaDB, so I decided to tackle the problem once and for all.
+
+### The Fix 🛠️
+
+After digging through articles and gists, I discovered the solution was surprisingly simple. All I had to do was delete the `tc.log` file located at:
+`/opt/homebrew/var/mysql/tc.log`
+
+Here’s the command to do it:
+```bash
+rm /opt/homebrew/var/mysql/tc.log
+```
+
+That’s it! Once the file was removed, MySQL/MariaDB started up without a hitch.
+
+### Why Does This Work? 🤔
+
+The tc.log file is part of MySQL’s transaction coordinator logging mechanism. If it becomes corrupted or out of sync, MySQL/MariaDB might fail to start. Deleting the file forces the server to regenerate a clean version the next time it starts.
+
+
+
+

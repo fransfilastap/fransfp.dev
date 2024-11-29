@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Script from "next/script";
 import { GA_MEASUREMENT_ID } from "@/config/env";
@@ -8,8 +8,9 @@ import Meta from "@/config/meta";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import  { ReactNode } from 'react'
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const jakartaSans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: Meta.site_title,
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -108,7 +109,7 @@ export default function RootLayout({
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          inter.variable
+          jakartaSans.variable
         )}
       >
         <ThemeProvider

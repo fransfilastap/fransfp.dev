@@ -3,8 +3,8 @@ import { ClassNameValue } from "tailwind-merge";
 
 export default function Logo() {
   return (
-    <Link href={"/"} className="inline-block text-xl font-extrabold">
-      FFP.
+    <Link href={"/"} className="inline-block text-xl font-extrabold font-mono">
+      ~/ffilasta
     </Link>
   );
 }

@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 // eslint-disable-next-line quotes
 
-import withBundleAnalyzer from "@next/bundle-analyzer";
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
 const cspHeader = `
     default-src 'self';
@@ -16,26 +16,29 @@ const cspHeader = `
     upgrade-insecure-requests;
 `
 
-const headers = async ()=>{
-  return [
-    {
-      source: '/(.*)',
-      headers: [
-        {
-          key: 'Content-Security-Policy',
-          value: cspHeader.replace(/\n/g, ''),
-        },
-      ],
-    },
-  ]
+const headers = async () => {
+  if (process.env.NODE_ENV === 'production') {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader.replace(/\n/g, ''),
+          },
+        ],
+      },
+    ]
+  }
+  return []
 }
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   headers: headers
-};
+}
 
 const config =
-  process.env.ANALYZE === "true" ? withBundleAnalyzer(nextConfig) : nextConfig;
+  process.env.ANALYZE === 'true' ? withBundleAnalyzer(nextConfig) : nextConfig
 
-export default config;
+export default config

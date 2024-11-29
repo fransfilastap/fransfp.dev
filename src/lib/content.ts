@@ -22,7 +22,7 @@ export type ContentMetadata = {
 };
 
 const allPosts = async function () {
-  const postsDirectory = path.join(process.cwd(), "src/app/blog/mdx");
+  const postsDirectory = path.join(process.cwd(), "src/app/mdx");
   const fileNames = await readdir(postsDirectory);
   const mdxFiles = fileNames.filter((file) => path.extname(file) === ".mdx");
   const allPostsData = await Promise.all(
