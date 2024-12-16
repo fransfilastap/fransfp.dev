@@ -20,10 +20,10 @@ export default function BlogList(props: Props) {
                     key={index}
                     className="py-2"
                 >
-                    <Link href={`/b/${post.slug}`} className="text-xl font-bold text-gray-800 hover:text-green-800 mb-2">
+                    <Link href={`/b/${post.slug}`} className="text-xl font-bold text-gray-800 dark:text-white hover:text-green-800 mb-2">
                         {post.title}
                     </Link>
-                    <p className="text-gray-600">{post.description}</p>
+                    <p className="text-gray-600 dark:text-white/65">{post.description}</p>
                 </article>
             ))}
         </div>
