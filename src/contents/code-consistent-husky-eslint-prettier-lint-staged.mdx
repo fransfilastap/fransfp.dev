@@ -36,13 +36,13 @@ We'll install the listed packages below:
 Run this command to install the required packages :
 
 ```shell
-yarn add -D eslint prettier lint-staged husky
+yarn add -D code-consistent-husky-eslint-prettier-lint-staged prettier lint-staged husky
 ```
 
 if your are using **npm**, run this command:
 
 ```shell
-npm install --save-dev eslint prettier lint-staged husky
+npm install --save-dev code-consistent-husky-eslint-prettier-lint-staged prettier lint-staged husky
 ```
 
 ## ESLint Configuration
@@ -50,13 +50,13 @@ npm install --save-dev eslint prettier lint-staged husky
 Let's start setup some configurations for the packages. I'll start with ESLint first. To begin ESLint you can run this command:
 
 ```shell
-yarn eslint --init
+yarn code-consistent-husky-eslint-prettier-lint-staged --init
 ```
 
 or
 
 ```shell
-npx eslint --init
+npx code-consistent-husky-eslint-prettier-lint-staged --init
 ```
 
 You'll be prompted with some questions, answer according to your project specification.
@@ -168,7 +168,7 @@ Here is an example `lint-staged` configuration using an object in `package.json`
 {
 ...
 "lint-staged":{
-    "src/**/*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "src/**/*.{js,jsx,ts,tsx}": "code-consistent-husky-eslint-prettier-lint-staged --cache --fix",
     "src/**/*.{js,jsx,ts,tsx,css,scss,md}": "prettier --write --ignore-unknown"
   }
 }
