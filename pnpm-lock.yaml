@@ -77,7 +77,7 @@ importers:
         version: 9.16.0(jiti@1.21.6)
       eslint-config-next:
         specifier: 15.1.0
-        version: 15.1.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+        version: 15.1.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       postcss:
         specifier: ^8
         version: 8.4.49
@@ -2591,10 +2591,10 @@ snapshots:
   '@typescript-eslint/eslint-plugin@8.18.0(@typescript-eslint/parser@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       '@typescript-eslint/scope-manager': 8.18.0
-      '@typescript-eslint/type-utils': 8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/type-utils': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/utils': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       '@typescript-eslint/visitor-keys': 8.18.0
       eslint: 9.16.0(jiti@1.21.6)
       graphemer: 1.4.0
@@ -2625,7 +2625,7 @@ snapshots:
   '@typescript-eslint/type-utils@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
       '@typescript-eslint/typescript-estree': 8.18.0(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/utils': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       debug: 4.4.0
       eslint: 9.16.0(jiti@1.21.6)
       ts-api-utils: 1.4.3(typescript@5.7.2)
@@ -2651,7 +2651,7 @@ snapshots:
 
   '@typescript-eslint/utils@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.1(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
+      '@eslint-community/eslint-utils': 4.4.1(eslint@9.16.0(jiti@1.21.6))
       '@typescript-eslint/scope-manager': 8.18.0
       '@typescript-eslint/types': 8.18.0
       '@typescript-eslint/typescript-estree': 8.18.0(typescript@5.7.2)
@@ -3092,20 +3092,20 @@ snapshots:
     dependencies:
       '@next/eslint-plugin-next': 15.1.0
       '@rushstack/eslint-patch': 1.10.4
-      '@typescript-eslint/eslint-plugin': 8.18.0(@typescript-code-consistent-husky-eslint-prettier-lint-staged/parser@8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2))(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
-      '@typescript-eslint/parser': 8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 8.18.0(@typescript-eslint/parser@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2))(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       eslint: 9.16.0(jiti@1.21.6)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.7.0(code-consistent-husky-eslint-prettier-lint-staged-plugin-import@2.31.0)(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
-      eslint-plugin-import: 2.31.0(@typescript-code-consistent-husky-eslint-prettier-lint-staged/parser@8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2))(code-consistent-husky-eslint-prettier-lint-staged-import-resolver-typescript@3.7.0)(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
-      eslint-plugin-jsx-a11y: 6.10.2(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
-      eslint-plugin-react: 7.37.2(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
-      eslint-plugin-react-hooks: 5.1.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
+      eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0)(eslint@9.16.0(jiti@1.21.6))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0)(eslint@9.16.0(jiti@1.21.6))
+      eslint-plugin-jsx-a11y: 6.10.2(eslint@9.16.0(jiti@1.21.6))
+      eslint-plugin-react: 7.37.2(eslint@9.16.0(jiti@1.21.6))
+      eslint-plugin-react-hooks: 5.1.0(eslint@9.16.0(jiti@1.21.6))
     optionalDependencies:
       typescript: 5.7.2
     transitivePeerDependencies:
-      - code-consistent-husky-eslint-prettier-lint-staged-import-resolver-webpack
-      - code-consistent-husky-eslint-prettier-lint-staged-plugin-import-x
+      - eslint-import-resolver-webpack
+      - eslint-plugin-import-x
       - supports-color
 
   eslint-import-resolver-node@0.3.9:
@@ -3128,7 +3128,7 @@ snapshots:
       is-glob: 4.0.3
       stable-hash: 0.0.4
     optionalDependencies:
-      eslint-plugin-import: 2.31.0(@typescript-code-consistent-husky-eslint-prettier-lint-staged/parser@8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2))(code-consistent-husky-eslint-prettier-lint-staged-import-resolver-typescript@3.7.0)(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
+      eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2))(eslint-import-resolver-typescript@3.7.0)(eslint@9.16.0(jiti@1.21.6))
     transitivePeerDependencies:
       - supports-color
 
@@ -3136,10 +3136,10 @@ snapshots:
     dependencies:
       debug: 3.2.7
     optionalDependencies:
-      '@typescript-eslint/parser': 8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       eslint: 9.16.0(jiti@1.21.6)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.7.0(code-consistent-husky-eslint-prettier-lint-staged-plugin-import@2.31.0)(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
+      eslint-import-resolver-typescript: 3.7.0(eslint-plugin-import@2.31.0)(eslint@9.16.0(jiti@1.21.6))
     transitivePeerDependencies:
       - supports-color
 
@@ -3154,7 +3154,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.16.0(jiti@1.21.6)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-code-consistent-husky-eslint-prettier-lint-staged/parser@8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2))(code-consistent-husky-eslint-prettier-lint-staged-import-resolver-node@0.3.9)(code-consistent-husky-eslint-prettier-lint-staged-import-resolver-typescript@3.7.0(code-consistent-husky-eslint-prettier-lint-staged-plugin-import@2.31.0)(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6)))(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0)(eslint@9.16.0(jiti@1.21.6)))(eslint@9.16.0(jiti@1.21.6))
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
@@ -3166,10 +3166,10 @@ snapshots:
       string.prototype.trimend: 1.0.9
       tsconfig-paths: 3.15.0
     optionalDependencies:
-      '@typescript-eslint/parser': 8.18.0(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
     transitivePeerDependencies:
-      - code-consistent-husky-eslint-prettier-lint-staged-import-resolver-typescript
-      - code-consistent-husky-eslint-prettier-lint-staged-import-resolver-webpack
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
       - supports-color
 
   eslint-plugin-jsx-a11y@6.10.2(eslint@9.16.0(jiti@1.21.6)):
@@ -3228,7 +3228,7 @@ snapshots:
 
   eslint@9.16.0(jiti@1.21.6):
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.1(code-consistent-husky-eslint-prettier-lint-staged@9.16.0(jiti@1.21.6))
+      '@eslint-community/eslint-utils': 4.4.1(eslint@9.16.0(jiti@1.21.6))
       '@eslint-community/regexpp': 4.12.1
       '@eslint/config-array': 0.19.1
       '@eslint/core': 0.9.1
