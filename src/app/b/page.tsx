@@ -12,6 +12,11 @@ async function getBlogPosts() {
     } as Post));
 }
 
+export const metadata = {
+    title: "Blog Posts | Frans Filasta Pratama",
+    description: "Frans Filasta Pratama's personal blog"
+}
+
 export default async function Page() {
     const posts = await getBlogPosts()
     return (

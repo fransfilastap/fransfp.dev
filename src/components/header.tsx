@@ -11,17 +11,6 @@ export default function Header() {
                 <Link href="/" className={"font-semibold text-2xl"}>FFP</Link>
                 <nav className={"flex flex-row gap-4"}>
                     {navItems.map((item, index) => (<Link key={index} href={item.href} className={'hover:text-green-950 font-medium transition duration-100'}>{item.title}</Link>))}
-                    {
-                        navItems.map((item, index) => (
-                            <Link
-                                key={index}
-                                href={item.href}
-                                className={'hover:text-green-950 font-medium transition duration-100'}
-                            >
-                                {item.title}
-                            </Link>
-                        ))
-                    }
                 </nav>
             </div>
         </header>
