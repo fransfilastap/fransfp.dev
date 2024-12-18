@@ -4,7 +4,7 @@ import {compileMDX, type MDXRemoteSerializeResult} from 'next-mdx-remote/rsc'
 import remarkGfm from 'remark-gfm'
 import {components} from "@/components/mdx/components";
 import rehypeMDXImportMedia from 'rehype-mdx-import-media'
-
+import rehypePrettyCode from "rehype-pretty-code";
 
 export interface Frontmatter {
     title: string;
@@ -37,7 +37,7 @@ const getAllPosts = async function () {
         })
     );
 
-    return allPostsData.sort((a,b)=> {
+    return allPostsData.sort((a, b) => {
         return new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime();
     });
 };
@@ -60,7 +60,9 @@ async function readMdx(filepath: string): Promise<MdxContent> {
             parseFrontmatter: true,
             mdxOptions: {
                 remarkPlugins: [remarkGfm],
-                rehypePlugins: [rehypeMDXImportMedia],
+                rehypePlugins: [rehypeMDXImportMedia, [rehypePrettyCode, {
+                    theme: "github-dark-dimmed",
+                }]],
                 format: 'mdx',
             },
         },

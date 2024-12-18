@@ -1,11 +1,11 @@
 import type {Metadata} from "next";
-import {Plus_Jakarta_Sans, JetBrains_Mono} from "next/font/google";
+import {Geist, JetBrains_Mono} from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
-    variable: "--font-jakarta-sans",
+const geist = Geist({
+    variable: "--font-geist-sans",
     subsets: ["latin"],
 });
 
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        <body className={`${plusJakartaSans.variable} ${jetBrainsMono.variable} antialiased`}>
+        <body className={`${geist.variable} ${jetBrainsMono.variable} antialiased`}>
         <Header/>
         <main className={"container mx-auto my-10"}>{children}</main>
         <Footer/>

@@ -10,7 +10,7 @@ export default function Header() {
             <div className={"container mx-auto justify-between items-center flex flex-row"}>
                 <Link href="/" className={"font-semibold text-2xl"}>FFP</Link>
                 <nav className={"flex flex-row gap-4"}>
-                    {navItems.map((item, index) => (<Link key={index} href={item.href} className={'hover:text-green-950 dark:hover:text-green-700 font-medium transition duration-100'}>{item.title}</Link>))}
+                    {navItems.map((item, index) => (<Link key={index} href={item.href} className={'hover:text-green-950 dark:hover:text-green-700 hover:underline font-medium transition duration-100'}>{item.title}</Link>))}
                 </nav>
             </div>
         </header>

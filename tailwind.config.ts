@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import type { PluginUtils } from "tailwindcss/types/config"
 import typographyPlugin from '@tailwindcss/typography'
 
 export default {
@@ -19,7 +18,7 @@ export default {
       },
     },
     extend: {
-      typography: () => ({ // <-- Works too
+      typography: () => ({
         DEFAULT: {
           css: {
             maxWidth: '100%'
