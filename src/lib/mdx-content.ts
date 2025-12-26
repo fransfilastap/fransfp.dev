@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm'
 import {components} from "@/components/mdx/components";
 import rehypeMDXImportMedia from 'rehype-mdx-import-media'
 import rehypePrettyCode from "rehype-pretty-code";
+import type { Options } from "rehype-pretty-code";
 
 export interface Frontmatter {
     title: string;
@@ -25,6 +26,31 @@ export interface MdxContent {
     rawSource: string;
 };
 
+// Enhanced rehype-pretty-code options
+const rehypePrettyCodeOptions: Options = {
+    theme: "github-dark-dimmed",
+    keepBackground: true,
+    defaultLang: "plaintext",
+    // Add line numbers via data attribute
+    onVisitLine(node) {
+        // Prevent lines from collapsing in `display: grid` mode
+        if (node.children.length === 0) {
+            node.children = [{ type: "text", value: " " }];
+        }
+    },
+    onVisitHighlightedLine(node) {
+        if (!node.properties.className) {
+            node.properties.className = [];
+        }
+        node.properties.className.push("line--highlighted");
+    },
+    onVisitHighlightedChars(node) {
+        if (!node.properties.className) {
+            node.properties.className = [];
+        }
+        node.properties.className.push("word--highlighted");
+    },
+};
 
 const getAllPosts = async function () {
     const postsDirectory = path.join(process.cwd(), "src/contents");
@@ -51,7 +77,6 @@ const getPostBySlug = async function (slug: string) {
 async function readMdx(filepath: string): Promise<MdxContent> {
     const fileContents = await readFile(filepath, "utf-8");
 
-    //const source = matter(fileContents);
     const slug = path.basename(filepath).replace(/\.mdx$/, "")
 
     const {content, frontmatter} = await compileMDX({
@@ -60,9 +85,10 @@ async function readMdx(filepath: string): Promise<MdxContent> {
             parseFrontmatter: true,
             mdxOptions: {
                 remarkPlugins: [remarkGfm],
-                rehypePlugins: [rehypeMDXImportMedia, [rehypePrettyCode, {
-                    theme: "github-dark-dimmed",
-                }]],
+                rehypePlugins: [
+                    rehypeMDXImportMedia, 
+                    [rehypePrettyCode, rehypePrettyCodeOptions]
+                ],
                 format: 'mdx',
             },
         },
@@ -80,6 +106,7 @@ async function readMdx(filepath: string): Promise<MdxContent> {
             slug: slug,
         },
         content: content,
+        rawSource: fileContents,
     } as MdxContent;
 }
 

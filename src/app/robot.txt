@@ -1,5 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: 
-
-Sitemap: https://blog.fransfp.dev/sitemap.xml
