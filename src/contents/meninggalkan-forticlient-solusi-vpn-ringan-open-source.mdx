@@ -1,0 +1,126 @@
+---
+slug: meninggalkan-forticlient-solusi-vpn-ringan-open-source
+title: Meninggalkan FortiClient: Solusi VPN Ringan & Open Source
+date: 2026-02-07
+author: Frans Filasta Pratama
+cover: /media/meninggalkan-forticlient-solusi-vpn-ringan-open-source/cover.jpg
+description: Description for Meninggalkan FortiClient: Solusi VPN Ringan & Open Source
+tags: []
+lastmod: 2026-02-07
+---
+
+Beberapa hari lalu, saya mengalami kendala teknis yang cukup mengganggu. Saat sedang harus menangani edge cases pada server production, tiba-tiba menu login di FortiClient VPN saya menghilang.
+
+Saya kemudian menghubungi kolega di Pusdatin untuk menanyakan apakah tersedia lisensi full version atau mungkin rekomendasi software alternatif lain. Rekan saya menyarankan untuk mencoba menghapus dan menginstall ulang aplikasi terlebih dahulu. Namun setelah dicoba, sayangnya cara tersebut belum berhasil memulihkan akses saya.
+
+Karena kebutuhan akses ke server cukup mendesak, saya mencoba mencari solusi lain di internet dengan kata kunci: "Forticlient opensource alternative". *Tadaa* hasil yang keluar adalah **openfortivpn** (https://github.com/adrienverge/openfortivpn). Lalu saya coba saja install.
+
+## Instalasi: Mac & Linux Friendly
+
+Kelebihan utama tool ini adalah ketersediaannya di berbagai OS.
+
+**Untuk Pengguna macOS (Apple Silicon):**
+Karena saya menggunakan MacBook, instalasi sangat mudah via Homebrew:
+
+```bash
+brew install openfortivpn
+```
+
+Untuk pengguna Linux, saya menggunakan Ubuntu. Instalasi via APT:
+
+```bash
+sudo apt update
+sudo apt install openfortivpn
+```
+
+## Percobaan Koneksi Pertama
+
+Selanjutnya saya coba connect dengan credential yang biasa digunakan untuk connect ke jaringan internal:
+
+```bash
+sudo openfortivpn vpn-gateway:8443 --username=foo
+```
+
+Hasilnya: *Gagal.*
+
+Terminal menolak koneksi karena masalah sertifikat keamanan (trusted-cert). Namun dari output openfortivpn terdapat hash trusted-cert yang dapat digunakan jika kita percaya bahwa koneksi ini aman.
+
+Coba lagi untuk connect dengan menambahkan sertifikat tersebut:
+
+```bash
+sudo openfortivpn vpn-gateway:8443 --username=foo --trusted-cert=sha256:1234567890
+```
+
+Berhasil! Tapi sangat tidak praktis.
+
+## Membuat Konfigurasi Permanen
+
+Selanjutnya saya coba baca dokumentasi di Github, ternyata kita bisa menyimpan config ini ke dalam file config.
+- Di macOS: File ini dapat dilihat di /opt/homebrew/etc/openfortivpn/config
+- Di Linux: File ini dapat dilihat di /etc/openfortivpn/config
+
+Isinya kurang lebih seperti ini. Tinggal sesuaikan saja:
+
+```text
+host = vpn-gateway
+port = 8443
+username = foo
+set-dns = 0
+pppd-use-peerdns = 0
+# X509 certificate sha256 sum, trust only this one!
+trusted-cert = e46d4aff08ba6914e64daa85bc6112a422fa7ce16631bff0b592a28556f993db
+```
+
+Setelah itu, saya hanya perlu menjalankan perintah berikut:
+
+```bash
+sudo openfortivpn -c /opt/homebrew/etc/openfortivpn/config
+```
+
+## Simplifikasi dengan Alias (Fish & Bash)
+
+Setelah menyimpan file tersebut saya coba buatkan alias agar lebih praktis.
+
+1. Dengan Fish:
+Karena saya menggunakan shell fish, lokasi untuk menambahkan alias ada di ~/.config/fish/config.fish
+
+Untuk kasus saya, alias yang saya berikan adalah connectdc:
+
+```bash
+alias connectdc='sudo openfortivpn -c /opt/homebrew/etc/openfortivpn/config'
+```
+
+Simpan lalu source file config-nya:
+
+```bash
+source ~/.config/fish/config.fish
+```
+
+2. Dengan Bash:
+Jika kalian menggunakan Bash, edit file ~/.bashrc. Jika Zsh, edit ~/.zshrc. Tambahkan baris yang sama (sesuaikan path config-nya):
+
+```bash
+alias connectdc='sudo openfortivpn -c /etc/openfortivpn/config'
+```
+
+Simpan lalu source file config-nya:
+
+```bash
+source ~/.bashrc
+```
+Mari kita coba:
+
+```bash
+connectdc
+```
+
+![Bus Factor - The risk you're taking if key people were hit by a bus](/media/meninggalkan-forticlient-solusi-vpn-ringan-open-source/terminal.png)
+
+## Penutup
+Selesai.
+
+Lebih praktis bukan? Jadi kepikiran buat GUI-nya.
+
+
+
+
