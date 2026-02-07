@@ -46,11 +46,11 @@ rl.question("Enter blog post title: ", (title) => {
 	// Create MDX file
 	const frontmatter = `---
 slug: ${slug}
-title: ${title}
+title: "${title}"
 date: ${date}
 author: Frans Filasta Pratama
 cover: /media/${slug}/cover.jpg
-description: Description for ${title}
+description: "Description for ${title}"
 tags: []
 lastmod: ${date}
 ---
