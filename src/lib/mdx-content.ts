@@ -7,6 +7,7 @@ import rehypeMDXImportMedia from 'rehype-mdx-import-media'
 import rehypePrettyCode from "rehype-pretty-code";
 import type { Options } from "rehype-pretty-code";
 import rehypeSlug from 'rehype-slug';
+import blurhashData from '@/data/blurhashes.json';
 
 export interface Frontmatter {
     title: string;
@@ -26,12 +27,19 @@ export interface Heading {
     level: 1 | 2 | 3;
 }
 
+export interface BlurhashInfo {
+    hash: string;
+    width: number;
+    height: number;
+}
+
 export interface MdxContent {
     metadata: Frontmatter;
     content: never;
     compiledSource: MDXRemoteSerializeResult;
     rawSource: string;
     headings: Heading[];
+    blurhash?: BlurhashInfo;
 };
 
 // Enhanced rehype-pretty-code options
@@ -122,6 +130,7 @@ async function readMdx(filepath: string): Promise<MdxContent> {
 
     const slug = path.basename(filepath).replace(/\.mdx$/, "")
     const headings = extractHeadings(fileContents);
+    const blurhash = blurhashData[slug as keyof typeof blurhashData] as BlurhashInfo | undefined;
 
     const {content, frontmatter} = await compileMDX({
         source: fileContents,
@@ -149,10 +158,12 @@ async function readMdx(filepath: string): Promise<MdxContent> {
             lastmod: frontmatter.lastmod,
             keywords: frontmatter.keywords,
             slug: slug,
+            cover: frontmatter.cover,
         },
         content: content,
         rawSource: fileContents,
         headings,
+        blurhash,
     } as MdxContent;
 }
 
