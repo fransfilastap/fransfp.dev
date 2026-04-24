@@ -7,6 +7,7 @@ import {generateBlogPostJsonLd} from "@/lib/json-ld";
 import {siteConfig} from "@/lib/config";
 import { TableOfContents } from '@/components/toc';
 import { MobileToc } from '@/components/toc-mobile';
+import { PostCover } from '@/components/post-cover';
 
 export async function generateStaticParams() {
     const posts = await getAllPosts()
@@ -133,6 +134,17 @@ export default async function Page({params}: Props) {
                             <span className="w-1 h-1 rounded-full bg-[var(--text-muted)]"></span>
                             <span>{readingTime} min read</span>
                         </div>
+                        
+                        {/* Cover Image */}
+                        {post.metadata.cover && post.blurhash && (
+                            <PostCover
+                                src={post.metadata.cover}
+                                blurhash={post.blurhash.hash}
+                                width={post.blurhash.width}
+                                height={post.blurhash.height}
+                                alt={post.metadata.title}
+                            />
+                        )}
                         
                         <h1 id={titleSlug} className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
                             {post.metadata.title}
