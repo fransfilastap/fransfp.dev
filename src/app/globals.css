@@ -470,3 +470,24 @@ kbd {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  scroll-margin-top: 5rem;
+}
+
+@keyframes toc-drawer {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-toc-drawer {
+  animation: toc-drawer 0.3s ease-out;
+}
