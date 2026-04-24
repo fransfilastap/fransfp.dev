@@ -13,10 +13,11 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents({ headings }: TableOfContentsProps) {
-    const [activeId, setActiveId] = useState<string>('');
+    const [activeId, setActiveId] = useState<string>(headings[0]?.id ?? '');
     const [indicatorStyle, setIndicatorStyle] = useState<{ top: number; height: number }>({ top: 0, height: 0 });
     const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
     const isClickScrolling = useRef(false);
+    const initialized = useRef(false);
 
     const updateIndicator = useCallback((id: string) => {
         const link = linkRefs.current[id];
@@ -30,6 +31,11 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
     useEffect(() => {
         if (headings.length <= 1) return;
+
+        if (!initialized.current) {
+            initialized.current = true;
+            updateIndicator(headings[0].id);
+        }
 
         const observers: IntersectionObserver[] = [];
 
@@ -60,14 +66,6 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
             observers.forEach((obs) => obs.disconnect());
         };
     }, [headings, updateIndicator]);
-
-    useEffect(() => {
-        if (headings.length > 0 && !activeId) {
-            const firstId = headings[0].id;
-            setActiveId(firstId);
-            updateIndicator(firstId);
-        }
-    }, [headings, activeId, updateIndicator]);
 
     const handleClick = (id: string) => {
         isClickScrolling.current = true;
@@ -113,7 +111,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
                                 }}
                                 className={`
                                     block py-1.5 text-sm transition-colors duration-200
-                                    ${heading.level === 3 ? 'pl-4' : 'pl-4'}
+                                    ${heading.level === 3 ? 'pl-8' : 'pl-4'}
                                     ${activeId === heading.id
                                         ? 'text-[var(--foreground)] font-medium'
                                         : 'text-[var(--text-secondary)] hover:text-[var(--foreground)]'
