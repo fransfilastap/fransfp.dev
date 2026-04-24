@@ -31,6 +31,7 @@ export interface BlurhashInfo {
     hash: string;
     width: number;
     height: number;
+    dataUrl: string;
 }
 
 export interface MdxContent {

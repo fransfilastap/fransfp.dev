@@ -139,9 +139,7 @@ export default async function Page({params}: Props) {
                         {post.metadata.cover && post.blurhash && (
                             <PostCover
                                 src={post.metadata.cover}
-                                blurhash={post.blurhash.hash}
-                                width={post.blurhash.width}
-                                height={post.blurhash.height}
+                                blurDataUrl={post.blurhash.dataUrl}
                                 alt={post.metadata.title}
                             />
                         )}

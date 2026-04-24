@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import sharp from "sharp";
-import { encode } from "blurhash";
+import { encode, decode } from "blurhash";
 
 const CONTENTS_DIR = path.join(process.cwd(), "src", "contents");
 const PUBLIC_DIR = path.join(process.cwd(), "public");
@@ -22,10 +22,28 @@ async function getBlurhash(imagePath) {
         3
     );
 
+    const blurWidth = Math.ceil(info.width / 10);
+    const blurHeight = Math.ceil(info.height / 10);
+    const pixels = decode(hash, blurWidth, blurHeight);
+    const canvasData = [];
+    for (let y = 0; y < blurHeight; y++) {
+        for (let x = 0; x < blurWidth; x++) {
+            const offset = (y * blurWidth + x) * 4;
+            canvasData.push(pixels[offset], pixels[offset + 1], pixels[offset + 2], pixels[offset + 3]);
+        }
+    }
+
+    const pngBuffer = await sharp(Buffer.from(canvasData), {
+        raw: { width: blurWidth, height: blurHeight, channels: 4 }
+    }).png().toBuffer();
+
+    const dataUrl = `data:image/png;base64,${pngBuffer.toString('base64')}`;
+
     return {
         hash,
         width: info.width,
         height: info.height,
+        dataUrl,
     };
 }
 
