@@ -1,4 +1,4 @@
-import {getAllPosts, getPostBySlug} from "@/lib/mdx-content";
+import {getAllPosts, getPostBySlug, type Heading} from "@/lib/mdx-content";
 import {Metadata} from "next";
 import {notFound} from "next/navigation";
 import {format} from "date-fns/format";
@@ -78,7 +78,12 @@ export default async function Page({params}: Props) {
     }
 
     const readingTime = estimateReadingTime(post.rawSource || '');
-    const headings = post.headings || [];
+    const mdxHeadings = post.headings || [];
+    const titleSlug = post.metadata.slug;
+    const headings: Heading[] = [
+        { text: post.metadata.title, id: titleSlug, level: 1 },
+        ...mdxHeadings,
+    ];
     
     // Generate JSON-LD for this blog post
     const blogPostJsonLd = generateBlogPostJsonLd({
@@ -129,7 +134,7 @@ export default async function Page({params}: Props) {
                             <span>{readingTime} min read</span>
                         </div>
                         
-                        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
+                        <h1 id={titleSlug} className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
                             {post.metadata.title}
                         </h1>
                         

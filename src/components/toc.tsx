@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 interface Heading {
     text: string;
     id: string;
-    level: 2 | 3;
+    level: 1 | 2 | 3;
 }
 
 interface TableOfContentsProps {
@@ -78,7 +78,7 @@ export function TableOfContents({ headings, hideHeader }: TableOfContentsProps) 
         }, 1000);
     };
 
-    if (headings.length <= 1) return null;
+    if (headings.length === 0) return null;
 
     return (
         <nav aria-label="Table of contents">
@@ -114,7 +114,7 @@ export function TableOfContents({ headings, hideHeader }: TableOfContentsProps) 
                                 }}
                                 className={`
                                     block py-1.5 text-sm transition-colors duration-200
-                                    ${heading.level === 3 ? 'pl-8' : 'pl-4'}
+                                    ${heading.level === 1 ? 'pl-0 font-semibold' : heading.level === 2 ? 'pl-4' : 'pl-8'}
                                     ${activeId === heading.id
                                         ? 'text-[var(--foreground)] font-medium'
                                         : 'text-[var(--text-secondary)] hover:text-[var(--foreground)]'

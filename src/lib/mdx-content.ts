@@ -23,7 +23,7 @@ export interface Frontmatter {
 export interface Heading {
     text: string;
     id: string;
-    level: 2 | 3;
+    level: 1 | 2 | 3;
 }
 
 export interface MdxContent {

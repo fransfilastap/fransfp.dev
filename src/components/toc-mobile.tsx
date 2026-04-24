@@ -6,7 +6,7 @@ import { TableOfContents } from './toc';
 interface Heading {
     text: string;
     id: string;
-    level: 2 | 3;
+    level: 1 | 2 | 3;
 }
 
 interface MobileTocProps {
@@ -16,7 +16,7 @@ interface MobileTocProps {
 export function MobileToc({ headings }: MobileTocProps) {
     const [isOpen, setIsOpen] = useState(false);
 
-    if (headings.length <= 1) return null;
+    if (headings.length === 0) return null;
 
     return (
         <>
