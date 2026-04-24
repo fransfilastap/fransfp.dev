@@ -14,11 +14,10 @@ interface TableOfContentsProps {
 }
 
 export function TableOfContents({ headings, hideHeader }: TableOfContentsProps) {
-    const [activeId, setActiveId] = useState<string>(headings[0]?.id ?? '');
+    const [activeId, setActiveId] = useState<string | null>(null);
     const [indicatorStyle, setIndicatorStyle] = useState<{ top: number; height: number }>({ top: 0, height: 0 });
     const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
     const isClickScrolling = useRef(false);
-    const initialized = useRef(false);
 
     const updateIndicator = useCallback((id: string) => {
         const link = linkRefs.current[id];
@@ -32,11 +31,6 @@ export function TableOfContents({ headings, hideHeader }: TableOfContentsProps) 
 
     useEffect(() => {
         if (headings.length <= 1) return;
-
-        if (!initialized.current) {
-            initialized.current = true;
-            updateIndicator(headings[0].id);
-        }
 
         const observers: IntersectionObserver[] = [];
 

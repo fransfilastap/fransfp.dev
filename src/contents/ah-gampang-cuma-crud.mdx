@@ -1,0 +1,206 @@
+---
+slug: ah-gampang-cuma-crud
+title: "Ah, Gampang Cuma CRUD!"
+date: 2026-04-24
+author: Frans Filasta Pratama
+cover: /media/ah-gampang-cuma-crud/cover.webp
+description: "Delusi tingkat tinggi bagi mereka yang menganggap ilmu orang lain lebih sepele dari ilmu yang mereka miliki."
+tags: []
+lastmod: 2026-04-24
+---
+
+
+**Respect.**
+
+Sebuah hal yang sepertinya semakin jarang diberikan kepada mereka yang memiliki disiplin keilmuan berbeda. Untuk mendapatkannya pun bukan hal yang mudah. Anda harus mampu menggebrak, tampil sebagai pembeda, dan tetap persisten.
+
+Menjadi seorang *software engineer* di tengah orang awam berarti Anda akan dianggap memahami segala hal yang dialiri listrik—mulai dari ahli Microsoft Excel, hingga jago desain foto dan video.
+
+Di satu sisi, ekspektasi ini terdengar seperti kekuatan super. Namun di sisi lain, orang sering kali menganggap bahwa keahlian Anda dalam *software engineering*, *software development*, atau *security* itu semudah mengetik di Google Docs atau Microsoft Word.
+
+Bagi saya, kedua asumsi ini sama-sama tidak mengenakkan. Meski begitu, saya masih bisa menerimanya jika alasan mereka murni karena awam. Namun, ceritanya akan berbeda jika mereka bersikap *ignorant* (abai). Hal itu jelas akan menyinggung perasaan.
+
+Itu dari kacamata orang awam. Namun, ada juga kondisi di mana terhadap sesama orang dengan latar belakang *Information Technology*—atau secara spesifik *software development*—kita tetap tidak bisa memberikan *respect*.
+
+Misalkan, ketika kita diminta membuat sebuah aplikasi. Karena orang ini merasa bisa membuat aplikasi dan menganggap pekerjaannya mudah, ia dengan entengnya berkata, “Ah, gampang itu…”. Ini bisa saja langsung memicu kekesalan atau terbawa perasaan. Walaupun sebenarnya kita bisa saja menganggap orang ini orang awam, dan biarkan berlalu saja. Kenapa ? Saya akan elaborasi.
+
+Kata “gampang” yang diucapkan sebelumnya bisa jadi benar *hanya jika* kita sudah bekerja bersama cukup lama, sudah sama-sama tahu apa yang sedang dibangun, dan paham bagaimana arsitekturnya.
+
+Namun, kata “gampang” ini menjadi sangat salah ketika diucapkan oleh mereka yang tidak pernah benar-benar tahu bagaimana sebuah sistem dibangun, seperti apa arsitekturnya, dan pertimbangan teknis apa saja yang berputar di kepala perancang sistem tersebut.
+
+Maksud saya: *there are levels to engineering*. Tanpa bermaksud merendahkan, di bidang apa pun memang selalu ada level keahlian. Termasuk dalam hal *engineering*.
+
+---
+
+### Smartphone
+
+Saya berikan contoh yang paling dekat dengan keseharian kita: *Smartphone*.
+
+Kita semua tahu ada *handphone entry-level* sejutaan dan ada kelas *flagship* yang harganya bisa tembus puluhan juta. Orang awam mungkin melihatnya dengan kacamata sederhana:
+
+> *"Kan sama-sama bisa buat WhatsApp, sama-sama bisa telepon, sama-sama bisa motret, kenapa harganya beda jauh?"*
+> 
+
+Di sinilah *level of engineering* berbicara. Membuat *handphone entry-level* pada dasarnya adalah menyatukan komponen-komponen standar yang sudah tersedia di pasaran agar bisa berfungsi dengan baik. Selesai.
+
+Tetapi merancang sebuah *flagship*? Anda berhadapan dengan *precision engineering* dan limitasi fisika.
+
+Para *engineer* harus memutar otak bagaimana cara memasukkan cip prosesor (*SoC*) dengan performa komputasi setara PC, sensor kamera berukuran raksasa, dan baterai berkapasitas besar ke dalam sasis setipis sekian milimeter—tanpa membuat perangkat tersebut meleleh karena *overheat*.
+
+Ada riset material yang dalam, sistem pendingin *vapor chamber* tingkat mikro, hingga algoritma *Image Signal Processor* (ISP) super kompleks yang mengkalkulasi jatuhnya cahaya secara *real-time* saat Anda memotret di malam hari.
+
+Yang dibayar mahal oleh konsumen bukanlah sekadar "layar yang menyala", melainkan biaya riset dan *engineering* tingkat tinggi di belakangnya.
+
+---
+
+### Konstruksi Bangunan
+
+Membangun rumah satu lantai atau pos ronda itu relatif gampang. Anda panggil tukang, buat fondasi standar, susun batu bata, pasang atap. Secara konsep, itu sudah bisa disebut arsitektur bangunan.
+
+Lalu, bagaimana jika Anda diminta membangun gedung pencakar langit 50 lantai? Apakah pendekatannya sama, hanya "batu batanya dibikin lebih tinggi"? Tentu tidak.
+
+Anda tidak bisa sekadar menumpuk material. Ada *geotechnical engineering* untuk mengkalkulasi daya dukung tanah yang kompleks, simulasi aerodinamika agar gedung tidak roboh diterpa angin kencang di ketinggian, hingga pemasangan *tuned mass damper* raksasa di puncak gedung sebagai peredam gempa bumi.
+
+Bagi orang awam yang sekadar melintas di depannya, pos ronda dan pencakar langit itu "sama-sama tempat orang bernaung". Tetapi bagi para *engineer*, toleransi kesalahan (*margin of error*), presisi, dan tingkat kerumitannya berada di dimensi yang sama sekali berbeda.
+
+---
+
+### CRUD
+
+Bagi orang yang baru belajar *coding* dari tutorial YouTube, atau orang IT yang sekadar tahu kulit luarnya, membuat fitur CRUD itu sangat gampang. Anda buat satu *file* kode, hubungkan langsung ke *database*, tulis perintah SQL atau ORM seadanya, dan *voilà*—aplikasi berjalan. Jika ada *error*, cukup munculkan pesan *error* generik di layar. Fitur selesai dalam hitungan jam.
+
+Dan karena pengalaman mereka sebatas itu, ketika melihat proyek sistem berskala besar, mereka dengan entengnya akan berkomentar, *"Ah gampang itu, cuma CRUD doang."*
+
+Tetapi, mari kita lihat bagaimana CRUD dibangun di level *enterprise-grade* oleh seorang *engineer* yang sesungguhnya. Di level ini, sekadar "aplikasi jalan" bukanlah sebuah prestasi; itu adalah ekspektasi paling bawah.
+
+Di level *enterprise*, fitur CRUD yang sama persis di layar pengguna, memiliki kerumitan arsitektur yang berlipat ganda di balik layar:
+
+1. **Clean Code & Design Pattern**
+    
+    *Engineer* yang pro tidak akan menumpuk semua logika di satu tempat. Mereka menerapkan *design pattern* (seperti *Repository Pattern* atau *Clean Architecture*) untuk memisahkan logika bisnis, koneksi *database*, dan antarmuka *User/API*.
+    
+    Tujuannya? Agar ketika sistem berubah atau tim bertambah besar, kode tidak menjadi benang kusut yang membuat sistem hancur ketika disentuh.
+    
+    Mereka tidak menulis kode hanya untuk dipahami komputer, tapi untuk dipahami oleh *engineer* lain agar sistem tidak bergantung pada satu orang saja (*no key-person dependency*).
+    
+2. **Test-Driven Development (TDD)**
+    
+    Di level pemula, pengujian dilakukan dengan mengeklik aplikasi secara manual. Di level *engineering* yang sesungguhnya, *engineer* menulis skenario tes otomatis (*unit test*, *integration test*) bahkan sebelum kode aplikasinya ditulis.
+    
+    Jika sebuah fitur CRUD diperbarui satu tahun kemudian, sistem secara otomatis akan memverifikasi ribuan baris kode untuk memastikan tidak ada fitur lama yang rusak akibat pembaruan tersebut.
+    
+3. **Logging & Observability**
+    
+    Ini yang paling sering membedakan amatir dan profesional. Saat aplikasi pemula *down* atau terkena *bug* di *production*, mereka akan buta dan menebak-nebak penyebabnya.
+    
+    Sementara itu, *engineer* pro mengimplementasikan *observability* dan *structured logging* tingkat tinggi. Mereka memantau latensi, mengatur *trace* antar layanan, dan mencatat *log* operasional dengan presisi.
+    
+    Ketika terjadi *error* pada saat data disimpan, *engineer* sudah tahu persis di baris kode mana, pada *microservice* mana, dan pada *query* apa *error* itu terjadi, bahkan sebelum pengguna sempat mengeluh.
+    
+4. **Keamanan dan Skalabilitas (Security & Scalability)**
+    
+    CRUD sederhana akan hancur ketika diakses seribu orang secara bersamaan (*race condition*), atau mudah dibobol lewat *SQL Injection*.
+    
+    Di level *enterprise*, *engineer* sudah memikirkan bagaimana mengatur *database transaction*, melakukan *sanitasi* input, membatasi *rate-limiting*, hingga memastikan data tetap utuh meskipun peladen (*server*) tiba-tiba mati di tengah proses *update*.
+    
+
+Jadi, apakah CRUD itu gampang? Ya, sangat gampang jika Anda hanya memikirkan hari ini dan hanya aplikasi itu yang berjalan di laptop Anda sendiri.
+
+Tetapi ia menjadi sebuah subjek *engineering* yang kompleks ketika sistem itu harus diakses puluhan ribu orang tanpa henti, tidak boleh ada celah keamanan, dan harus bisa dipelihara (*maintainable*) selama bertahun-tahun tanpa membuat *engineer* penerusnya ingin bunuh diri.
+
+Inilah *level of engineering*. Ketidaktahuan akan hal-hal inilah yang sering kali membuat seseorang dengan mudahnya meremehkan pekerjaan orang lain.
+
+Karena kita berbicara tentang *enterprise-grade*, saya akan menggunakan contoh implementasi di bahasa pemrograman modern (seperti Go) yang jamak digunakan untuk membangun sistem *backend* skala besar, lengkap dengan implementasi *logging* yang terstruktur (*structured logging*) dan *tracing* untuk *observability*
+
+Mari kita lihat buktinya di level kode. Bayangkan sebuah fitur paling sederhana: mendaftarkan pengguna baru (*Create User*).
+
+Bagi mereka yang berada di level **"CRUD itu gampang"**, mungkin saja kodenya akan terlihat seperti ini. Semua proses ditumpuk menjadi satu di *controller* atau *router* aplikasi:
+
+```go
+func CreateUser(c echo.Context) error {
+
+	db, _ := sql.Open("postgres", "user=root dbname=test sslmode=disable")
+	defer db.Close()
+
+	var u User
+	c.Bind(&u)
+
+	_, err := db.Exec("INSERT INTO users (name, email) VALUES ($1, $2)", u.Name, u.Email)
+	if err != nil {
+		return c.JSON(500, "Terjadi kesalahan di server")
+	}
+
+	return c.JSON(201, "Sukses")
+}
+```
+
+Sekarang, mari kita bandingkan dengan bagaimana **level *enterprise*** menangani fitur yang sama persis:
+
+```go
+// 1. Dependency Injection untuk memisahkan semua komponen eksternal
+type UserUseCase struct {
+    repo        UserRepository
+    log         *zap.Logger         // Structured logging
+    metrics     *MetricsCollector   // Observability
+    featureFlag FeatureFlagClient   // Feature Flag
+}
+
+func (uc *UserUseCase) CreateUser(ctx context.Context, u *domain.User) error {
+    // 2. Memulai Tracing untuk memetakan perjalanan request antar microservice
+    ctx, span := otel.Tracer("user-service").Start(ctx, "UserUseCase.CreateUser")
+    defer span.End()
+
+    // 3. Observability: Merekam latensi (waktu eksekusi) untuk SLA & Alerting
+    timer := prometheus.NewTimer(uc.metrics.RegistrationLatency)
+    defer timer.ObserveDuration()
+
+    uc.log.Info("Mencoba membuat user baru", zap.String("email", u.Email))
+
+    // 4. Feature Flag: Merilis fitur baru (misal: validasi ketat) tanpa membongkar kode.
+    if uc.featureFlag.IsEnabled(ctx, "enable_strict_validation_v2") {
+        if err := u.ValidateStrict(); err != nil {
+            uc.metrics.RegistrationErrors.Inc() // Observability: Menghitung jumlah error
+            uc.log.Warn("Validasi strict user gagal", zap.Error(err))
+            return err
+        }
+    } else {
+        if err := u.Validate(); err != nil {
+            uc.metrics.RegistrationErrors.Inc()
+            uc.log.Warn("Validasi user gagal", zap.Error(err))
+            return err
+        }
+    }
+
+    // 5. Memanggil repository dengan meneruskan Context (untuk kontrol timeout)
+    if err := uc.repo.Insert(ctx, u); err != nil {
+        uc.metrics.RegistrationErrors.Inc()
+        uc.log.Error("Gagal menyimpan user ke database",
+            zap.String("email", u.Email),
+            zap.Error(err),
+        )
+        return err
+    }
+
+    uc.metrics.RegistrationSuccess.Inc() // Observability: Menghitung tingkat keberhasilan
+    uc.log.Info("User berhasil dibuat", zap.String("email", u.Email))
+    return nil
+}
+```
+
+Bagi orang awam, kode kedua ini mungkin terlihat berlebihan. Mengapa harus sepanjang ini hanya untuk menyimpan satu baris data?
+
+Namun, mari kita lihat skenario di dunia nyata.
+
+Ketika fitur validasi baru (*strict validation*) tiba-tiba menyebabkan ribuan pengguna gagal mendaftar karena adanya anomali data di *production*, *engineer* pemula (pendekatan pertama) akan panik. Mereka harus mencari sumber masalahnya dengan menebak-nebak, memperbaiki kode secara tergesa-gesa, melakukan *build* ulang, dan melakukan *deployment* ulang selagi aplikasi sedang kacau balau.
+
+Sebaliknya, apa yang dilakukan oleh *engineer* profesional dengan pendekatan kedua?
+
+Sistem **Observability** (metrik) mereka akan langsung mendeteksi lonjakan rasio *error* dan memberikan peringatan (*alert*) otomatis ke ponsel mereka sebelum pengguna sempat protes di media sosial. Begitu melihat grafik error meningkat, mereka cukup masuk ke dasbor manajemen **Feature Flag** dan mematikan fungsi `enable_strict_validation_v2` dengan satu klik. Sistem seketika kembali menggunakan aturan validasi lama yang stabil. Tidak ada *downtime*, tidak ada *deploy* ulang yang mempertaruhkan nyawa, dan mereka bisa memperbaiki *bug* tersebut dengan tenang keesokan harinya.
+
+Pendekatan pertama melahirkan pahlawan kesiangan yang membanggakan budaya lembur (*hustle culture*) untuk memperbaiki sistem yang sebenarnya ia hancurkan sendiri karena kecerobohannya.
+
+Pendekatan kedua melahirkan sistem yang sunyi, elegan, dan mewariskan ketenangan operasional—sebuah kultur *no key-person dependency* yang solid. Ini adalah hasil dari rekayasa yang mempertimbangkan setiap probabilitas kegagalan. Di sinilah batas tegas antara mereka yang sekadar "bisa mengetik kode", dengan mereka yang benar-benar mempraktikkan *software engineering*.
+
+Saya selalu memegang prinsip yang diturunkan oleh senior saya: Jangan pernah membangun sesuatu hanya untuk diri kita sendiri. Pikirkan tim support, pikirkan tim monitoring. Mereka harus punya visibilitas yang jelas untuk tahu apa yang salah dan bagaimana meresponsnya dengan cepat. Membangun sistem yang berempati pada tim operasional di masa depan membutuhkan level engineering dan kedewasaan arsitektur yang sama sekali berbeda.
+
+Pada akhirnya, menghargai kompleksitas pekerjaan orang lain adalah tanda profesionalisme. Sebelum Anda melempar kata "gampang" terhadap sistem yang sedang dibangun rekan Anda, pastikan Anda benar-benar mampu menyelami kedalaman palung teknis yang mereka hadapi. Respect the craft, respect the engineer. Bagaimana dengan Anda? Pernahkah Anda berhadapan dengan orang yang memandang sebelah mata terhadap kompleksitas sistem yang sedang Anda bangun? Mari bagikan pengalaman Anda di kolom komentar.

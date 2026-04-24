@@ -5,7 +5,7 @@ import { encode, decode } from "blurhash";
 
 const CONTENTS_DIR = path.join(process.cwd(), "src", "contents");
 const PUBLIC_DIR = path.join(process.cwd(), "public");
-const OUTPUT_PATH = path.join(process.cwd(), "src", "data", "blurhashes.json");
+const OUTPUT_PATH = path.join(process.cwd(), "src", "data", "blurhashes.ts");
 
 async function getBlurhash(imagePath) {
     const { data, info } = await sharp(imagePath)
@@ -102,7 +102,13 @@ async function main() {
         fs.mkdirSync(dataDir, { recursive: true });
     }
 
-    fs.writeFileSync(OUTPUT_PATH, JSON.stringify(result, null, 2) + "\n");
+    const entries = Object.entries(result).map(
+        ([slug, data]) => `  "${slug}": {\n    hash: "${data.hash}",\n    width: ${data.width},\n    height: ${data.height},\n    dataUrl: "${data.dataUrl}"\n  }`
+    );
+
+    const tsContent = `const blurhashes: Record<string, {\n  hash: string;\n  width: number;\n  height: number;\n  dataUrl: string;\n}> = {\n${entries.join(",\n")}\n};\n\nexport default blurhashes;\n`;
+
+    fs.writeFileSync(OUTPUT_PATH, tsContent);
     console.log(`\nWrote ${Object.keys(result).length} entries to ${OUTPUT_PATH}`);
 }
 

@@ -7,7 +7,7 @@ import rehypeMDXImportMedia from 'rehype-mdx-import-media'
 import rehypePrettyCode from "rehype-pretty-code";
 import type { Options } from "rehype-pretty-code";
 import rehypeSlug from 'rehype-slug';
-import blurhashData from '@/data/blurhashes.json';
+import blurhashData from '@/data/blurhashes';
 
 export interface Frontmatter {
     title: string;
