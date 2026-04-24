@@ -10,9 +10,10 @@ interface Heading {
 
 interface TableOfContentsProps {
     headings: Heading[];
+    hideHeader?: boolean;
 }
 
-export function TableOfContents({ headings }: TableOfContentsProps) {
+export function TableOfContents({ headings, hideHeader }: TableOfContentsProps) {
     const [activeId, setActiveId] = useState<string>(headings[0]?.id ?? '');
     const [indicatorStyle, setIndicatorStyle] = useState<{ top: number; height: number }>({ top: 0, height: 0 });
     const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
@@ -81,9 +82,11 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
     return (
         <nav aria-label="Table of contents">
-            <h4 className="text-sm font-semibold text-[var(--foreground)] mb-4 uppercase tracking-wider">
-                On this page
-            </h4>
+            {!hideHeader && (
+                <h4 className="text-sm font-semibold text-[var(--foreground)] mb-4 uppercase tracking-wider">
+                    On this page
+                </h4>
+            )}
             <div className="relative">
                 {activeId && (
                     <div

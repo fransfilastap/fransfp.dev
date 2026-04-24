@@ -10,33 +10,33 @@ export const components = {
     Image: Image,
     
     // Headings with proper Medium-style typography
-    h1: ({children}: {children: React.ReactNode}) => (
-        <h1 className="text-3xl md:text-4xl font-bold mt-12 mb-4 tracking-tight">
+    h1: ({children, id}: {children: React.ReactNode, id?: string}) => (
+        <h1 id={id} className="text-3xl md:text-4xl font-bold mt-12 mb-4 tracking-tight">
             {children}
         </h1>
     ),
-    h2: ({children}: {children: React.ReactNode}) => (
-        <h2 className="text-2xl md:text-3xl font-bold mt-10 mb-4 tracking-tight">
+    h2: ({children, id}: {children: React.ReactNode, id?: string}) => (
+        <h2 id={id} className="text-2xl md:text-3xl font-bold mt-10 mb-4 tracking-tight">
             {children}
         </h2>
     ),
-    h3: ({children}: {children: React.ReactNode}) => (
-        <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3 tracking-tight">
+    h3: ({children, id}: {children: React.ReactNode, id?: string}) => (
+        <h3 id={id} className="text-xl md:text-2xl font-bold mt-8 mb-3 tracking-tight">
             {children}
         </h3>
     ),
-    h4: ({children}: {children: React.ReactNode}) => (
-        <h4 className="text-lg md:text-xl font-bold mt-6 mb-2">
+    h4: ({children, id}: {children: React.ReactNode, id?: string}) => (
+        <h4 id={id} className="text-lg md:text-xl font-bold mt-6 mb-2">
             {children}
         </h4>
     ),
-    h5: ({children}: {children: React.ReactNode}) => (
-        <h5 className="text-base md:text-lg font-bold mt-4 mb-2">
+    h5: ({children, id}: {children: React.ReactNode, id?: string}) => (
+        <h5 id={id} className="text-base md:text-lg font-bold mt-4 mb-2">
             {children}
         </h5>
     ),
-    h6: ({children}: {children: React.ReactNode}) => (
-        <h6 className="text-sm md:text-base font-bold mt-4 mb-2 uppercase tracking-wide text-[var(--text-secondary)]">
+    h6: ({children, id}: {children: React.ReactNode, id?: string}) => (
+        <h6 id={id} className="text-sm md:text-base font-bold mt-4 mb-2 uppercase tracking-wide text-[var(--text-secondary)]">
             {children}
         </h6>
     ),

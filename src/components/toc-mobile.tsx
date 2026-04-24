@@ -57,7 +57,7 @@ export function MobileToc({ headings }: MobileTocProps) {
                                 </svg>
                             </button>
                         </div>
-                        <TableOfContents headings={headings} />
+                        <TableOfContents headings={headings} hideHeader />
                     </div>
                 </div>
             )}
