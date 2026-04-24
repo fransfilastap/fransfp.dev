@@ -6,6 +6,7 @@ import {components} from "@/components/mdx/components";
 import rehypeMDXImportMedia from 'rehype-mdx-import-media'
 import rehypePrettyCode from "rehype-pretty-code";
 import type { Options } from "rehype-pretty-code";
+import rehypeSlug from 'rehype-slug';
 
 export interface Frontmatter {
     title: string;
@@ -19,11 +20,18 @@ export interface Frontmatter {
     cover?: string;
 }
 
+export interface Heading {
+    text: string;
+    id: string;
+    level: 2 | 3;
+}
+
 export interface MdxContent {
     metadata: Frontmatter;
     content: never;
     compiledSource: MDXRemoteSerializeResult;
     rawSource: string;
+    headings: Heading[];
 };
 
 // Enhanced rehype-pretty-code options
@@ -52,6 +60,41 @@ const rehypePrettyCodeOptions: Options = {
     },
 };
 
+function slugify(text: string): string {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-');
+}
+
+function extractHeadings(rawSource: string): Heading[] {
+    const lines = rawSource.split('\n');
+    const headings: Heading[] = [];
+    const idCounts: Record<string, number> = {};
+
+    for (const line of lines) {
+        const match = line.match(/^(#{2,3})\s+(.+)$/);
+        if (!match) continue;
+
+        const level = match[1].length as 2 | 3;
+        const text = match[2].replace(/\*+|`+|~~+/g, '').trim();
+        let id = slugify(text);
+
+        if (idCounts[id] !== undefined) {
+            idCounts[id]++;
+            id = `${id}-${idCounts[id]}`;
+        } else {
+            idCounts[id] = 0;
+        }
+
+        headings.push({ text, id, level });
+    }
+
+    return headings;
+}
+
 const getAllPosts = async function () {
     const postsDirectory = path.join(process.cwd(), "src/contents");
     const fileNames = await readdir(postsDirectory);
@@ -78,6 +121,7 @@ async function readMdx(filepath: string): Promise<MdxContent> {
     const fileContents = await readFile(filepath, "utf-8");
 
     const slug = path.basename(filepath).replace(/\.mdx$/, "")
+    const headings = extractHeadings(fileContents);
 
     const {content, frontmatter} = await compileMDX({
         source: fileContents,
@@ -86,6 +130,7 @@ async function readMdx(filepath: string): Promise<MdxContent> {
             mdxOptions: {
                 remarkPlugins: [remarkGfm],
                 rehypePlugins: [
+                    rehypeSlug,
                     rehypeMDXImportMedia, 
                     [rehypePrettyCode, rehypePrettyCodeOptions]
                 ],
@@ -107,6 +152,7 @@ async function readMdx(filepath: string): Promise<MdxContent> {
         },
         content: content,
         rawSource: fileContents,
+        headings,
     } as MdxContent;
 }
 
